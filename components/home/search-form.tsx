@@ -11,6 +11,11 @@ interface SearchFormProps {
   initialQuery?: Partial<SearchQuery>;
   submitLabel?: string;
   compact?: boolean;
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  signals?: string[];
+  footerNote?: string;
 }
 
 const originCities = getDistinctOriginCities();
@@ -19,7 +24,12 @@ const destinationCities = getDistinctDestinationCities();
 export function SearchForm({
   initialQuery,
   submitLabel = "开始找票",
-  compact = false
+  compact = false,
+  eyebrow,
+  title,
+  description,
+  signals,
+  footerNote
 }: SearchFormProps) {
   const router = useRouter();
   const [form, setForm] = useState<SearchQuery>({ ...DEFAULT_QUERY, ...initialQuery });
@@ -46,9 +56,15 @@ export function SearchForm({
   return (
     <form className={`search-form ${compact ? "search-form--compact" : ""}`} onSubmit={handleSubmit}>
       <div className="search-form__header">
-        <div>
-          <span className="section-label">搜索区</span>
-          <h3>{compact ? "修改搜索条件" : "从一个城市对开始，先把低价机会找出来"}</h3>
+        <div className="search-form__heading">
+          <span className="section-label">{eyebrow ?? (compact ? "修改搜索" : "搜索一条航线")}</span>
+          <h3>{title ?? (compact ? "换一组条件继续判断" : "先搜一条航线，再判断它值不值得买")}</h3>
+          <p className="search-form__description">
+            {description ??
+              (compact
+                ? "修改后会带着当前的筛选和判断方式继续对比。"
+                : "这里不是只给你最低裸价，还会把托运、退改签和中转代价一起摆出来。")}
+          </p>
         </div>
         <div className="trip-switch">
           <button
@@ -68,11 +84,11 @@ export function SearchForm({
         </div>
       </div>
 
-      {!compact ? (
+      {signals && signals.length > 0 ? (
         <div className="search-form__signal-row">
-          <span>固定 8 条演示航线</span>
-          <span>单程主链路优先</span>
-          <span>7 天低价观察窗</span>
+          {signals.map((signal) => (
+            <span key={signal}>{signal}</span>
+          ))}
         </div>
       ) : null}
 
@@ -113,7 +129,6 @@ export function SearchForm({
         <label className="field field--return">
           <span className="field__label">
             返程日期
-            <small>轻量展示</small>
           </span>
           <input
             type="date"
@@ -141,9 +156,9 @@ export function SearchForm({
         </label>
       </div>
 
-      <div className="search-form__footer">
-        <p>返程日期在 v1 中只做轻量展示保留，不参与价格联动、排序、筛选和低价日历。</p>
-        <button type="submit" className="primary-button">
+      <div className="search-form__footer search-form__footer--plain">
+        <p>{footerNote ?? (compact ? "保留当前的最便宜 / 最划算视图，再看新的航线结果。" : "默认主链路已预置，打开结果页后可直接比较“最便宜”和“最划算”。")}</p>
+        <button type="submit" className="primary-button primary-button--large">
           {submitLabel}
         </button>
       </div>

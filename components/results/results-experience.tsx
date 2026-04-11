@@ -65,6 +65,11 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
     commitQuery({ sort });
   }
 
+  const lowestPrice =
+    experience.flights.length > 0
+      ? Math.min(...experience.flights.map((flight) => flight.totalPrice))
+      : 0;
+
   return (
     <main className="page page-results">
       <header className="results-topbar">
@@ -72,10 +77,10 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
           <span className="brand-mark__dot" />
           <span>
             <strong>{PRODUCT_NAME}</strong>
-            <small>特价机票发现平台</small>
-          </span>
-        </Link>
-        <div className="results-topbar__meta">默认主链路：上海 → 东京 / 2026-05-16 / 单程 / 1 人</div>
+              <small>特价机票发现平台</small>
+            </span>
+          </Link>
+        <div className="results-topbar__meta">固定演示航线已校验，可直接切换日期、筛选和判断视图</div>
       </header>
 
       <div className="results-layout">
@@ -84,27 +89,36 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
           route={experience.route}
           resultCount={experience.flights.length}
           totalCount={experience.flightsBeforeFilters.length}
+          lowestPrice={lowestPrice}
           searchOpen={searchOpen}
           onToggleSearch={() => setSearchOpen((current) => !current)}
         />
 
         {searchOpen ? (
           <div className="inline-search-panel">
-            <SearchForm initialQuery={experience.query} submitLabel="应用新搜索" compact />
+            <SearchForm
+              initialQuery={experience.query}
+              submitLabel="应用新搜索"
+              compact
+              description="换航线后，仍然会保留这套结果页的比较方式。"
+              footerNote="搜索条件更新后，会继续在结果页用同样的判断方式看票。"
+            />
           </div>
         ) : null}
 
         {experience.route ? (
           <>
-            <CalendarStrip
-              items={experience.calendarItems}
-              selectedDate={experience.selectedCalendarDate}
-              onSelect={(date) => commitQuery({ departDate: date })}
-            />
+            <section className="results-decision-grid">
+              <SortSwitch sort={experience.query.sort} onChange={updateSort} />
+              <CalendarStrip
+                items={experience.calendarItems}
+                selectedDate={experience.selectedCalendarDate}
+                onSelect={(date) => commitQuery({ departDate: date })}
+              />
+            </section>
 
             <section className="results-panel">
               <FilterBar query={experience.query} onChange={commitQuery} />
-              <SortSwitch sort={experience.query.sort} onChange={updateSort} />
 
               {experience.flights.length > 0 ? (
                 <div className="flight-list">
@@ -120,9 +134,9 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
                 </div>
               ) : (
                 <section className="empty-state">
-                  <span className="section-label">无结果状态</span>
+                  <span className="section-label">当前没有合适结果</span>
                   <h2>当前筛选下没有合适特价</h2>
-                  <p>可以放宽条件、切换低价日历日期，或者回首页查看固定热门推荐。</p>
+                  <p>可以先放宽筛选，再换一天看看。这个产品更适合先调整判断条件，而不是死盯一张票。</p>
                   <div className="chip-row">
                     <button type="button" className="secondary-button" onClick={() => commitQuery({ baggage: "any", flexibility: "any", hideRisk: false, stops: "any", time: "any" })}>
                       清空筛选
@@ -137,15 +151,15 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
           </>
         ) : (
           <section className="empty-state empty-state--wide">
-            <span className="section-label">无结果状态</span>
+            <span className="section-label">当前航线未预置数据</span>
             <h2>当前城市组合没有预置演示数据</h2>
-            <p>v1 只固定了 8 条航线。你可以直接回到首页，或者从下面 6 张热门推荐卡片里继续演示。</p>
+            <p>先回到首页从推荐机会进入，会更接近这次 demo 设计好的主链路。</p>
             <div className="deal-grid">
               {featuredDeals.map((deal) => (
                 <Link key={deal.dealId} href={buildResultsHref(deal.targetQuery)} className="deal-card">
                   <div className="deal-card__header">
                     <div>
-                      <span className="deal-card__kicker">快速回到主链路</span>
+                      <span className="deal-card__kicker">回到主链路</span>
                       <h3>{deal.title}</h3>
                     </div>
                   </div>

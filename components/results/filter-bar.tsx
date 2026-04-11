@@ -62,19 +62,31 @@ function FilterGroup<T extends string>({
 }
 
 export function FilterBar({ query, onChange }: FilterBarProps) {
+  const activeFilterCount = [
+    query.time !== "any",
+    query.stops !== "any",
+    query.baggage !== "any",
+    query.flexibility !== "any",
+    query.hideRisk
+  ].filter(Boolean).length;
+
   return (
     <div className="filter-bar">
       <div className="filter-bar__header">
-        <div>
-          <span className="section-label">顶部筛选</span>
-          <p>优先排除规则不友好的低价票，再比较最低价与最划算的差异。</p>
+        <div className="filter-bar__title">
+          <span className="section-label">工具栏</span>
+          <p>
+            {activeFilterCount > 0
+              ? `已启用 ${activeFilterCount} 项筛选，当前结果更偏向你真正能接受的那类票。`
+              : "先缩小范围，再看最便宜和最划算到底差在哪。"}
+          </p>
         </div>
         <button
           type="button"
           className={`risk-toggle ${query.hideRisk ? "is-active" : ""}`}
           onClick={() => onChange({ hideRisk: !query.hideRisk })}
         >
-          {query.hideRisk ? "已隐藏高风险航班" : "隐藏高风险航班"}
+          {query.hideRisk ? "已隐藏高风险" : "隐藏高风险"}
         </button>
       </div>
 

@@ -10,14 +10,19 @@ export function CalendarStrip({
   selectedDate: string;
   onSelect: (date: string) => void;
 }) {
+  const cheapestDay = [...items].sort((left, right) => left.lowestTotalPrice - right.lowestTotalPrice)[0];
+
   return (
     <section className="calendar-strip">
       <div className="calendar-strip__header">
         <div>
           <span className="section-label">低价日历</span>
-          <h2>横向 7 列日期价格条</h2>
+          <h2>换一天再看，通常比继续纠结一张票更有效</h2>
         </div>
-        <p>只服务出发日期，点击后刷新当前结果，但不丢失现有筛选和排序。</p>
+        <p>
+          当前已选 {formatMonthDay(selectedDate)}
+          {cheapestDay ? ` · 7 天内最低在 ${formatMonthDay(cheapestDay.date)}` : ""}
+        </p>
       </div>
 
       <div className="calendar-strip__grid">

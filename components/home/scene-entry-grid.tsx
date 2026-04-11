@@ -13,9 +13,10 @@ export function SceneEntryGrid({ scenes }: { scenes: SceneRecord[] }) {
         >
           <div className="scene-card__content">
             <div className="scene-card__top">
-              <span className="scene-card__badge">{scene.title}</span>
-              <span className="scene-card__action">按这个场景找票</span>
+              <span className="scene-card__badge">发现入口</span>
+              <span className="scene-card__count">覆盖 {scene.routeIds.length} 条航线</span>
             </div>
+
             <div className="scene-card__body">
               <h3>{scene.title}</h3>
               <p>{scene.subtitle}</p>
@@ -28,7 +29,10 @@ export function SceneEntryGrid({ scenes }: { scenes: SceneRecord[] }) {
                 <span key={routeId}>{routeId.replaceAll("_", " · ")}</span>
               ))}
             </div>
-            <span className="scene-card__hint">固定演示参数</span>
+            <div className="scene-card__bottom">
+              <span className="scene-card__hint">这组入口更适合先看机会，再判断代价</span>
+              <span className="scene-card__action">进入这组低价 →</span>
+            </div>
           </div>
         </Link>
       ))}

@@ -1,5 +1,12 @@
 import type { FlightResult, SortMode } from "@/lib/types";
 import { formatDuration, formatFlightWindow, formatPrice } from "@/lib/utils/date";
+import {
+  getBaggageBadge,
+  getFlightDecisionHeadline,
+  getFlightLabelTone,
+  getFlexibilityBadge,
+  getFlightRiskSummary
+} from "@/lib/utils/presentation";
 
 export function FlightCard({
   flight,
@@ -12,58 +19,82 @@ export function FlightCard({
   sort: SortMode;
   onOpen: () => void;
 }) {
+  const baggageBadge = getBaggageBadge(flight.checkedBaggage);
+  const flexibilityBadge = getFlexibilityBadge(flight.changePolicyLevel);
+
   return (
     <article className="flight-card">
-      <div className="flight-card__header">
-        <div className="flight-card__rank">{rank.toString().padStart(2, "0")}</div>
-        <div>
-          <div className="flight-card__airline">
-            <strong>{flight.airlineName}</strong>
-            <span>{flight.flightNumber}</span>
+      <div className="flight-card__grid">
+        <div className="flight-card__route">
+          <div className="flight-card__meta-row">
+            <div className="flight-card__rank">{rank.toString().padStart(2, "0")}</div>
+            <div>
+              <div className="flight-card__airline">
+                <strong>{flight.airlineName}</strong>
+                <span>{flight.flightNumber}</span>
+              </div>
+              <p>
+                {flight.route.originCity} → {flight.route.destinationCity} · {flight.departAirportCode} →{" "}
+                {flight.arriveAirportCode}
+              </p>
+            </div>
           </div>
-          <p>
-            {flight.route.originCity} → {flight.route.destinationCity} · {flight.departAirportCode} →{" "}
-            {flight.arriveAirportCode}
-          </p>
-        </div>
-        <div className="flight-card__price">
-          <strong>{formatPrice(flight.totalPrice)}</strong>
-          <span>含税总价</span>
-        </div>
-      </div>
 
-      <div className="flight-card__main">
-        <div className="flight-card__times">
-          <strong>{formatFlightWindow(flight.departTimeLocal, flight.arriveTimeLocal, flight.arrivalDayOffset)}</strong>
-          <span>{formatDuration(flight.durationMinutes)}</span>
+          <div className="flight-card__timeline">
+            <div className="flight-card__point">
+              <strong>{flight.departTimeLocal}</strong>
+              <span>{flight.departAirportCode}</span>
+            </div>
+            <div className="flight-card__line">
+              <span>{formatDuration(flight.durationMinutes)}</span>
+              <small>{flight.stopSummary}</small>
+            </div>
+            <div className="flight-card__point flight-card__point--arrive">
+              <strong>{flight.arriveTimeLocal}</strong>
+              <span>{flight.arriveAirportCode}</span>
+            </div>
+          </div>
         </div>
-        <div className="flight-card__stops">{flight.stopSummary}</div>
-      </div>
 
-      <div className="chip-row">
-        <span className="chip chip--soft">{flight.checkedBaggage === "0kg" ? "仅随身行李" : `托运 ${flight.checkedBaggage}`}</span>
-        <span className="chip chip--soft">
-          {flight.changePolicyLevel === "flexible"
-            ? "较灵活"
-            : flight.changePolicyLevel === "limited"
-              ? "有限改签"
-              : "严格限制"}
-        </span>
-        {flight.labels.map((label) => (
-          <span key={label} className="chip">
-            {label}
-          </span>
-        ))}
+        <div className="flight-card__facts">
+          <div className="status-row">
+            <span className={`status-badge status-badge--${baggageBadge.tone}`}>{baggageBadge.label}</span>
+            <span className={`status-badge status-badge--${flexibilityBadge.tone}`}>{flexibilityBadge.label}</span>
+            {flight.labels.map((label) => (
+              <span key={label} className={`status-badge status-badge--${getFlightLabelTone(label)}`}>
+                {label}
+              </span>
+            ))}
+          </div>
+
+          <div className="flight-card__detail-row">
+            <span>{formatFlightWindow(flight.departTimeLocal, flight.arriveTimeLocal, flight.arrivalDayOffset)}</span>
+            <span>{getFlightDecisionHeadline(flight)}</span>
+          </div>
+
+          <p className="flight-card__summary">{getFlightRiskSummary(flight)}</p>
+        </div>
+
+        <div className="flight-card__decision">
+          <div className="flight-card__price">
+            <strong>{formatPrice(flight.totalPrice)}</strong>
+            <span>含税总价</span>
+            <small>
+              {flight.priceGapFromCheapest === 0
+                ? "当前最低价"
+                : `比最低价高 ${formatPrice(flight.priceGapFromCheapest)}`}
+            </small>
+          </div>
+
+          <button type="button" className="secondary-button" onClick={onOpen}>
+            {sort === "best_value" && rank === 1 ? "查看为何更划算" : "查看规则详情"}
+          </button>
+        </div>
       </div>
 
       <div className="flight-card__review">
-        <div>
-          <span className="section-label">AI 风格点评</span>
-          <p>{flight.aiReview.short}</p>
-        </div>
-        <button type="button" className="secondary-button" onClick={onOpen}>
-          {sort === "best_value" && rank === 1 ? "查看最划算理由" : "查看规则详情"}
-        </button>
+        <span className="status-badge status-badge--neutral">AI 判断</span>
+        <p>{flight.aiReview.short}</p>
       </div>
     </article>
   );

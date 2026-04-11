@@ -10,15 +10,15 @@ export function FeaturedDealsGrid({ deals }: { deals: FeaturedDealRecord[] }) {
         <Link key={deal.dealId} href={buildResultsHref(deal.targetQuery)} className="deal-card">
           <div className="deal-card__header">
             <div className="deal-card__copy">
-              <span className="deal-card__kicker">热门推荐</span>
+              <span className="deal-card__kicker">机会卡</span>
               <h3>{deal.title}</h3>
+              <p className="deal-card__insight">{deal.subtitle}</p>
             </div>
             <div className="deal-card__price">
               <span>低至</span>
               <strong>{formatPrice(deal.fromPrice)}</strong>
             </div>
           </div>
-          <p>{deal.subtitle}</p>
           <div className="deal-card__footer">
             <div className="deal-card__meta">
               <span>{deal.travelWindow}</span>
@@ -30,6 +30,7 @@ export function FeaturedDealsGrid({ deals }: { deals: FeaturedDealRecord[] }) {
                 </span>
               ))}
             </div>
+            <div className="deal-card__cta">去结果页看这组票 →</div>
           </div>
         </Link>
       ))}
