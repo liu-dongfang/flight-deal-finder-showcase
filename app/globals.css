@@ -1,0 +1,1182 @@
+:root {
+  --bg: #f5efe6;
+  --bg-elevated: rgba(255, 255, 255, 0.88);
+  --surface: #fffaf4;
+  --surface-strong: #ffffff;
+  --text: #1e2430;
+  --muted: #667085;
+  --line: rgba(30, 36, 48, 0.12);
+  --shadow: 0 18px 48px rgba(18, 33, 56, 0.12);
+  --brand: #ea5b2a;
+  --brand-deep: #ca4420;
+  --accent: #0f766e;
+  --warning: #c2410c;
+  --success: #0f766e;
+  --chip: rgba(15, 118, 110, 0.1);
+  --shadow-soft: 0 12px 28px rgba(18, 33, 56, 0.08);
+  --shadow-strong: 0 22px 54px rgba(18, 33, 56, 0.14);
+  --font-sans: "Avenir Next", "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(234, 91, 42, 0.14), transparent 32%),
+    radial-gradient(circle at top right, rgba(15, 118, 110, 0.16), transparent 30%),
+    linear-gradient(180deg, #fbf4ea 0%, #f3ede4 48%, #efe8de 100%);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.page {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0 56px;
+}
+
+.page-home {
+  display: grid;
+  gap: 28px;
+}
+
+.hero-shell,
+.content-section,
+.summary-card,
+.results-panel,
+.calendar-strip,
+.inline-search-panel,
+.empty-state,
+.disclaimer-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.hero-shell {
+  padding: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.8), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 249, 242, 0.9) 100%);
+}
+
+.topbar,
+.results-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.topbar__note,
+.results-topbar__meta {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.topbar__note {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(30, 36, 48, 0.08);
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark strong {
+  display: block;
+  font-size: 18px;
+}
+
+.brand-mark small {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.brand-mark__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--brand) 0%, #f59e0b 100%);
+  box-shadow: 0 0 0 6px rgba(234, 91, 42, 0.14);
+}
+
+.brand-mark--dark .brand-mark__dot {
+  box-shadow: 0 0 0 6px rgba(15, 118, 110, 0.14);
+  background: linear-gradient(135deg, var(--accent) 0%, #14b8a6 100%);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.hero-copy {
+  padding: 26px 10px 14px;
+}
+
+.hero-kicker,
+.section-label,
+.deal-card__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero-copy h1,
+.summary-card h1 {
+  margin: 18px 0 14px;
+  font-size: clamp(40px, 6vw, 66px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.hero-copy p,
+.section-heading p,
+.deal-card p,
+.scene-card p,
+.summary-card p,
+.drawer-section p,
+.empty-state p,
+.disclaimer-card p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 28px 0 20px;
+}
+
+.stat-card,
+.summary-stat {
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(30, 36, 48, 0.08);
+}
+
+.stat-card strong,
+.summary-stat strong {
+  display: block;
+  font-size: 28px;
+}
+
+.stat-card span,
+.summary-stat span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.hero-points,
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hero-points span,
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(30, 36, 48, 0.06);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.chip {
+  background: rgba(234, 91, 42, 0.12);
+  color: var(--brand-deep);
+}
+
+.chip--soft {
+  background: var(--chip);
+  color: var(--accent);
+}
+
+.hero-panel {
+  display: flex;
+  align-items: stretch;
+}
+
+.search-form {
+  width: 100%;
+  display: grid;
+  gap: 20px;
+  padding: 28px;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 246, 238, 0.98) 100%);
+  border: 1px solid rgba(30, 36, 48, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 18px 42px rgba(18, 33, 56, 0.1);
+}
+
+.search-form--compact {
+  padding: 20px;
+  border-radius: 24px;
+  box-shadow: none;
+}
+
+.search-form__header,
+.search-form__footer,
+.sort-switch,
+.calendar-strip__header,
+.flight-card__header,
+.flight-card__review,
+.detail-list li,
+.drawer__header,
+.scene-card__top,
+.deal-card__header,
+.summary-card,
+.summary-card__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.search-form__signal-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: -4px;
+}
+
+.search-form__signal-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(234, 91, 42, 0.08);
+  border: 1px solid rgba(234, 91, 42, 0.14);
+  color: var(--brand-deep);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.search-form__header h3,
+.section-heading h2,
+.calendar-strip__header h2,
+.sort-switch h2,
+.empty-state h2,
+.disclaimer-card h3 {
+  margin: 10px 0 0;
+  font-size: 26px;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+.trip-switch,
+.sort-switch__buttons,
+.filter-pills {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.trip-switch button,
+.sort-switch__buttons button,
+.filter-pills button,
+.risk-toggle,
+.secondary-button,
+.primary-button,
+.drawer__close,
+.calendar-tile {
+  border: 1px solid transparent;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease;
+}
+
+.trip-switch button,
+.sort-switch__buttons button,
+.filter-pills button,
+.risk-toggle,
+.secondary-button,
+.drawer__close {
+  padding: 11px 14px;
+  background: rgba(30, 36, 48, 0.06);
+  color: var(--text);
+}
+
+.primary-button {
+  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--brand) 0%, #f97316 100%);
+  color: white;
+  font-weight: 700;
+}
+
+.trip-switch button.is-active,
+.sort-switch__buttons button.is-active,
+.filter-pills button.is-active,
+.risk-toggle.is-active {
+  background: rgba(234, 91, 42, 0.12);
+  color: var(--brand-deep);
+  border-color: rgba(234, 91, 42, 0.2);
+}
+
+.search-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  align-items: end;
+}
+
+.search-form--compact .search-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.field--passengers {
+  grid-column: 1 / -1;
+}
+
+.search-form--compact .field--passengers {
+  grid-column: auto;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.field__label small {
+  color: rgba(102, 112, 133, 0.88);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 16px;
+  border: 1px solid rgba(30, 36, 48, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: rgba(234, 91, 42, 0.32);
+  box-shadow:
+    0 0 0 4px rgba(234, 91, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.search-form__footer {
+  align-items: flex-end;
+  padding-top: 4px;
+  border-top: 1px solid rgba(30, 36, 48, 0.08);
+}
+
+.search-form__footer p {
+  margin: 0;
+  max-width: 540px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.content-section {
+  padding: 26px;
+}
+
+.content-section--compact {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.section-heading h2 {
+  max-width: 640px;
+}
+
+.section-heading p {
+  max-width: 420px;
+  margin: 0;
+}
+
+.scene-grid,
+.deal-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.scene-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.deal-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.scene-card,
+.deal-card,
+.flight-card,
+.drawer,
+.inline-search-panel,
+.calendar-strip,
+.results-panel,
+.summary-card,
+.empty-state,
+.disclaimer-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.scene-card,
+.deal-card,
+.flight-card,
+.disclaimer-card,
+.empty-state {
+  padding: 22px;
+  border-radius: 24px;
+  background: var(--surface);
+  border: 1px solid rgba(30, 36, 48, 0.08);
+}
+
+.scene-card {
+  min-height: 242px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: var(--shadow-soft);
+}
+
+.scene-card::before,
+.deal-card::before,
+.flight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.45), transparent 34%);
+}
+
+.scene-card--sunrise {
+  background: linear-gradient(180deg, rgba(255, 247, 236, 0.96) 0%, rgba(255, 232, 214, 0.96) 100%);
+}
+
+.scene-card--mint {
+  background: linear-gradient(180deg, rgba(239, 251, 247, 0.96) 0%, rgba(220, 246, 239, 0.96) 100%);
+}
+
+.scene-card--sea {
+  background: linear-gradient(180deg, rgba(235, 247, 255, 0.96) 0%, rgba(220, 239, 252, 0.96) 100%);
+}
+
+.scene-card--sunset {
+  background: linear-gradient(180deg, rgba(255, 241, 236, 0.96) 0%, rgba(249, 228, 220, 0.96) 100%);
+}
+
+.scene-card__badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--brand-deep);
+}
+
+.scene-card__action {
+  color: rgba(30, 36, 48, 0.72);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.scene-card__content,
+.scene-card__body,
+.scene-card__footer {
+  display: grid;
+  gap: 12px;
+}
+
+.scene-card h3,
+.deal-card h3 {
+  margin: 14px 0 10px;
+  font-size: 24px;
+  letter-spacing: -0.03em;
+}
+
+.scene-card h3 {
+  margin: 0;
+}
+
+.scene-card p {
+  margin: 0;
+}
+
+.scene-card__routes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.scene-card__routes span {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.scene-card__hint {
+  color: rgba(30, 36, 48, 0.56);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.deal-card {
+  display: grid;
+  gap: 16px;
+  min-height: 222px;
+  box-shadow: var(--shadow-soft);
+}
+
+.deal-card__copy {
+  display: grid;
+  gap: 8px;
+}
+
+.deal-card__copy h3 {
+  margin: 0;
+}
+
+.deal-card__price {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+  text-align: right;
+}
+
+.deal-card__price span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.deal-card__price strong {
+  font-size: 34px;
+  line-height: 1;
+  color: var(--brand-deep);
+}
+
+.deal-card p {
+  margin: 0;
+}
+
+.deal-card__footer {
+  display: grid;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.deal-card__meta {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.disclaimer-card {
+  background: linear-gradient(135deg, rgba(30, 36, 48, 0.94) 0%, rgba(53, 62, 82, 0.94) 100%);
+  color: white;
+}
+
+.disclaimer-card p,
+.disclaimer-card .section-label {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.results-topbar {
+  margin-bottom: 18px;
+}
+
+.results-layout {
+  display: grid;
+  gap: 18px;
+}
+
+.summary-card,
+.sort-switch {
+  padding: 22px;
+}
+
+.summary-card {
+  align-items: stretch;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 247, 238, 0.98) 100%);
+}
+
+.summary-card h1 {
+  font-size: clamp(30px, 4vw, 48px);
+  margin: 10px 0 8px;
+}
+
+.summary-card__content {
+  flex: 1;
+}
+
+.summary-card__actions {
+  display: grid;
+  justify-items: end;
+  gap: 10px;
+  min-width: 180px;
+}
+
+.summary-card__hint {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: right;
+}
+
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.inline-search-panel {
+  padding: 18px;
+}
+
+.calendar-strip,
+.results-panel {
+  padding: 22px;
+}
+
+.results-panel {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 250, 246, 0.92) 100%);
+}
+
+.calendar-strip__grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.calendar-tile {
+  display: grid;
+  gap: 6px;
+  text-align: left;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(30, 36, 48, 0.08);
+}
+
+.calendar-tile strong {
+  font-size: 20px;
+}
+
+.calendar-tile small {
+  color: var(--muted);
+}
+
+.calendar-tile--low {
+  background: rgba(234, 91, 42, 0.08);
+}
+
+.calendar-tile--medium {
+  background: rgba(15, 118, 110, 0.08);
+}
+
+.calendar-tile--high {
+  background: rgba(30, 36, 48, 0.06);
+}
+
+.calendar-tile.is-active {
+  border-color: rgba(234, 91, 42, 0.35);
+  transform: translateY(-2px);
+  background: rgba(255, 245, 239, 0.98);
+}
+
+.filter-bar {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(30, 36, 48, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.filter-bar__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.filter-bar__header p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.filter-bar__groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.filter-group {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(248, 244, 239, 0.86);
+  border: 1px solid rgba(30, 36, 48, 0.06);
+}
+
+.filter-group > span {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.flight-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.sort-switch {
+  margin-top: 16px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(30, 36, 48, 0.08);
+}
+
+.sort-switch p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.flight-card {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 250, 246, 0.96) 100%);
+  box-shadow: var(--shadow-soft);
+}
+
+.flight-card__rank {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(234, 91, 42, 0.12);
+  color: var(--brand-deep);
+  font-weight: 800;
+}
+
+.flight-card__airline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.flight-card__airline span,
+.flight-card__header p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.flight-card__header p {
+  margin: 0;
+}
+
+.flight-card__price {
+  text-align: right;
+}
+
+.flight-card__price strong {
+  display: block;
+  font-size: 28px;
+  color: var(--brand-deep);
+}
+
+.flight-card__price span,
+.flight-card__times span,
+.flight-card__stops {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.flight-card__main {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(30, 36, 48, 0.08);
+  border-bottom: 1px solid rgba(30, 36, 48, 0.08);
+  margin: 16px 0;
+}
+
+.flight-card__times strong {
+  display: block;
+  font-size: 24px;
+  margin-bottom: 6px;
+  letter-spacing: -0.03em;
+}
+
+.flight-card__review {
+  align-items: flex-end;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(248, 244, 239, 0.82);
+  border: 1px solid rgba(30, 36, 48, 0.06);
+}
+
+.flight-card__review p {
+  margin: 10px 0 0;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.empty-state {
+  display: grid;
+  gap: 16px;
+}
+
+.empty-state--wide {
+  padding: 28px;
+}
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+  background: rgba(20, 27, 38, 0.46);
+  z-index: 50;
+}
+
+.drawer {
+  width: min(620px, 100%);
+  height: 100vh;
+  padding: 24px;
+  background:
+    linear-gradient(180deg, rgba(255, 251, 246, 1) 0%, rgba(255, 247, 239, 1) 100%);
+  border-left: 1px solid rgba(30, 36, 48, 0.08);
+  overflow-y: auto;
+  box-shadow: -20px 0 56px rgba(18, 33, 56, 0.16);
+}
+
+.drawer__header {
+  align-items: flex-start;
+  margin-bottom: 18px;
+  position: sticky;
+  top: -24px;
+  z-index: 2;
+  padding: 0 0 16px;
+  background: rgba(255, 251, 246, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+.drawer__header h2 {
+  margin: 10px 0 8px;
+  font-size: 32px;
+  letter-spacing: -0.03em;
+}
+
+.drawer__header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.drawer-section {
+  padding: 18px 0;
+  border-top: 1px solid rgba(30, 36, 48, 0.08);
+}
+
+.drawer-section--risk {
+  padding: 18px;
+  border-top: 0;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(30, 36, 48, 0.96) 0%, rgba(56, 66, 89, 0.96) 100%);
+  color: white;
+  margin-bottom: 18px;
+}
+
+.drawer-section--risk .chip {
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.drawer-section--risk .chip--soft {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.drawer__body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.drawer__body .drawer-section {
+  margin: 0;
+  padding: 18px;
+  border: 1px solid rgba(30, 36, 48, 0.08);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.drawer-section h3 {
+  margin: 0 0 14px;
+  font-size: 20px;
+}
+
+.drawer-section--ai p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.detail-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.detail-list li {
+  align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px dashed rgba(30, 36, 48, 0.08);
+}
+
+.detail-list span {
+  color: var(--muted);
+}
+
+.detail-list strong {
+  max-width: 58%;
+  text-align: right;
+  line-height: 1.6;
+}
+
+.primary-button:hover,
+.secondary-button:hover,
+.trip-switch button:hover,
+.sort-switch__buttons button:hover,
+.filter-pills button:hover,
+.risk-toggle:hover,
+.drawer__close:hover,
+.calendar-tile:hover,
+.scene-card:hover,
+.deal-card:hover,
+.flight-card:hover {
+  transform: translateY(-2px);
+}
+
+.primary-button:focus-visible,
+.secondary-button:focus-visible,
+.trip-switch button:focus-visible,
+.sort-switch__buttons button:focus-visible,
+.filter-pills button:focus-visible,
+.risk-toggle:focus-visible,
+.drawer__close:focus-visible,
+.calendar-tile:focus-visible,
+.scene-card:focus-visible,
+.deal-card:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(234, 91, 42, 0.12);
+}
+
+@media (max-width: 1080px) {
+  .hero-grid,
+  .scene-grid,
+  .deal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-form--compact .search-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .calendar-strip__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .section-heading,
+  .summary-card,
+  .summary-card__content,
+  .flight-card__header,
+  .flight-card__main,
+  .flight-card__review,
+  .search-form__footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .summary-stats,
+  .hero-stats {
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .filter-bar__header,
+  .filter-bar__groups {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-bar__header {
+    align-items: flex-start;
+  }
+
+  .flight-card__price,
+  .detail-list strong,
+  .summary-card__hint {
+    text-align: left;
+  }
+
+  .summary-card__actions {
+    justify-items: start;
+  }
+}
+
+@media (max-width: 720px) {
+  .page {
+    width: min(100% - 20px, 100%);
+    padding: 16px 0 40px;
+  }
+
+  .hero-shell,
+  .content-section,
+  .summary-card,
+  .results-panel,
+  .calendar-strip,
+  .inline-search-panel {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .search-grid,
+  .calendar-strip__grid,
+  .hero-stats,
+  .summary-stats,
+  .drawer__body,
+  .filter-bar__groups,
+  .search-form--compact .search-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar,
+  .results-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-copy h1,
+  .summary-card h1 {
+    font-size: 34px;
+  }
+
+  .search-form {
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .field--passengers,
+  .search-form--compact .field--passengers {
+    grid-column: auto;
+  }
+
+  .drawer {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .drawer__header {
+    top: -20px;
+  }
+}
