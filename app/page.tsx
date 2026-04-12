@@ -40,6 +40,7 @@ export default function HomePage() {
               <small>深度机票比价与风险洞察</small>
             </span>
           </Link>
+          <div className="topbar__note">近期值得关注的航线</div>
         </header>
 
         <div className="hero-grid">
@@ -63,7 +64,7 @@ export default function HomePage() {
                   <span className="section-label">今日关注</span>
                   <h2>{DEFAULT_QUERY.from} 飞往 {DEFAULT_QUERY.to} 特价</h2>
                 </div>
-                <p>为您对比最低裸价与最高性价比方案，助您精明决策。</p>
+                <p>通过 {DEFAULT_QUERY.from} 飞往 {DEFAULT_QUERY.to} 的这条典型航线，为您对比最低裸价与最高性价比。</p>
               </div>
 
               <div className="hero-insight-grid">
@@ -110,7 +111,7 @@ export default function HomePage() {
               submitLabel="开启智能比价"
               eyebrow="下一站去哪"
               title="规划您的完美旅程"
-              description="输入目的地，剩下的计算交给我们。全面比对全网最优性价比。"
+              description="已经为你准备好一条典型样例。输入新目的地，剩下的计算交给我们。"
               signals={["行李额预警", "退改签评级", "转机风险提示"]}
             />
           </div>

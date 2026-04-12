@@ -12,7 +12,7 @@ export const routes: RouteRecord[] = [
     tripType: "one_way",
     sceneTags: ["weekend", "holiday"],
     typicalPriceRange: "¥699 - ¥1,139",
-    heroLabel: "签证和规则门槛清晰，适合做低价发现主航线"
+    heroLabel: "签证和规则门槛清晰，很适合用来比较低价与代价"
   },
   {
     routeId: "sha_osa",

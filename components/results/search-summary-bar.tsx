@@ -56,7 +56,7 @@ export function SearchSummaryBar({
           </div>
           <div className="summary-stat summary-stat--wide">
             <strong>{route?.heroLabel ?? "继续比较总价与规则差异"}</strong>
-            <span>这一组票最适合看的判断重点</span>
+            <span>这一组票最值得先看这些差异</span>
           </div>
         </div>
       </div>

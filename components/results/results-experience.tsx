@@ -80,7 +80,7 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
               <small>特价机票发现平台</small>
             </span>
           </Link>
-        <div className="results-topbar__meta">包含全部税金与附加费用的真实比价</div>
+        <div className="results-topbar__meta">这条典型航线已精调，包含全部税金与附加费用的真实比价</div>
       </header>
 
       <div className="results-layout">
