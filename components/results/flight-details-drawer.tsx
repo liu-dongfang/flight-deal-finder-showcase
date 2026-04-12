@@ -54,7 +54,7 @@ export function FlightDetailsDrawer({
       <aside className="drawer" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
         <div className="drawer__header">
           <div>
-            <span className="section-label">规则解释器</span>
+            <span className="section-label">航班明细</span>
             <h2>
               {flight.route.originCity} → {flight.route.destinationCity}
             </h2>
@@ -69,7 +69,7 @@ export function FlightDetailsDrawer({
 
         <section className="drawer-hero">
           <div className="drawer-hero__decision">
-            <span className="status-badge status-badge--accent">首屏结论</span>
+            <span className="status-badge status-badge--accent">智能分析建议</span>
             <h3>{decisionHeadline}</h3>
             <p>{flight.aiReview.short}</p>
           </div>
@@ -122,8 +122,8 @@ export function FlightDetailsDrawer({
             </ul>
             <p className="drawer-card__hint">
               {flight.stopCount === 0
-                ? "直飞，比较成本和适合人群最直接。"
-                : "这张票的时间成本主要来自中转安排，需要连同行李和衔接一起判断。"}
+                ? "直飞航班，时间和精力成本最优。"
+                : "转机将增加整体出行时间，请注意核实行李能否直挂。"}
             </p>
           </section>
 
@@ -160,8 +160,8 @@ export function FlightDetailsDrawer({
             </ul>
             <p className="drawer-card__hint">
               {flight.checkedBaggage === "0kg"
-                ? "如果不是轻装出行，这部分会直接抬高你的真实总成本。"
-                : "托运行李已经算进当前权益，不需要再额外脑补隐藏费用。"}
+                ? "请注意：当前票价不含免费托运行李额度，可能产生额外开销。"
+                : "该票价已包含托运行李额，无需额外支付此项费用。"}
             </p>
           </section>
 

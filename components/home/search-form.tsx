@@ -23,7 +23,7 @@ const destinationCities = getDistinctDestinationCities();
 
 export function SearchForm({
   initialQuery,
-  submitLabel = "开始找票",
+  submitLabel = "搜索特价航班",
   compact = false,
   eyebrow,
   title,
@@ -57,13 +57,13 @@ export function SearchForm({
     <form className={`search-form ${compact ? "search-form--compact" : ""}`} onSubmit={handleSubmit}>
       <div className="search-form__header">
         <div className="search-form__heading">
-          <span className="section-label">{eyebrow ?? (compact ? "修改搜索" : "搜索一条航线")}</span>
-          <h3>{title ?? (compact ? "换一组条件继续判断" : "先搜一条航线，再判断它值不值得买")}</h3>
+          <span className="section-label">{eyebrow ?? (compact ? "重新搜索" : "探索航班")}</span>
+          <h3>{title ?? (compact ? "调整您的搜索条件" : "搜索包含全部费用的真实特价")}</h3>
           <p className="search-form__description">
             {description ??
               (compact
-                ? "修改后会带着当前的筛选和判断方式继续对比。"
-                : "这里不是只给你最低裸价，还会把托运、退改签和中转代价一起摆出来。")}
+                ? "更新条件，我们将继续为您比对真实性价比。"
+                : "我们为您呈现的不仅仅是裸票价格，还会清楚展示行李、退改签等隐藏费用，助您理性决策。")}
           </p>
         </div>
         <div className="trip-switch">
@@ -79,7 +79,7 @@ export function SearchForm({
             className={form.tripType === "round_trip" ? "is-active" : ""}
             onClick={() => updateTripType("round_trip")}
           >
-            往返参考
+            往返
           </button>
         </div>
       </div>
@@ -157,7 +157,7 @@ export function SearchForm({
       </div>
 
       <div className="search-form__footer search-form__footer--plain">
-        <p>{footerNote ?? (compact ? "保留当前的最便宜 / 最划算视图，再看新的航线结果。" : "默认主链路已预置，打开结果页后可直接比较“最便宜”和“最划算”。")}</p>
+        <p>{footerNote ?? (compact ? "应用新条件后，您仍可以使用当前视图比价。" : "我们将依据最佳性价比规则为您展示航班列表，支持多维度对比。")}</p>
         <button type="submit" className="primary-button primary-button--large">
           {submitLabel}
         </button>

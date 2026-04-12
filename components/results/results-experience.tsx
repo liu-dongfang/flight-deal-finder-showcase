@@ -80,7 +80,7 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
               <small>特价机票发现平台</small>
             </span>
           </Link>
-        <div className="results-topbar__meta">固定演示航线已校验，可直接切换日期、筛选和判断视图</div>
+        <div className="results-topbar__meta">包含全部税金与附加费用的真实比价</div>
       </header>
 
       <div className="results-layout">
@@ -100,8 +100,8 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
               initialQuery={experience.query}
               submitLabel="应用新搜索"
               compact
-              description="换航线后，仍然会保留这套结果页的比较方式。"
-              footerNote="搜索条件更新后，会继续在结果页用同样的判断方式看票。"
+              description="实时更新符合新条件的航班列表及真实成本。"
+              footerNote="搜索条件更新后，我们将继续为您提供最客观的性价比排序。"
             />
           </div>
         ) : null}
@@ -134,15 +134,15 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
                 </div>
               ) : (
                 <section className="empty-state">
-                  <span className="section-label">当前没有合适结果</span>
-                  <h2>当前筛选下没有合适特价</h2>
-                  <p>可以先放宽筛选，再换一天看看。这个产品更适合先调整判断条件，而不是死盯一张票。</p>
+                  <span className="section-label">暂无符合条件的航班</span>
+                  <h2>未找到完全满足当前筛选的特价方案</h2>
+                  <p>建议您放宽筛选条件，或查看临近日期的高性价比航班。</p>
                   <div className="chip-row">
                     <button type="button" className="secondary-button" onClick={() => commitQuery({ baggage: "any", flexibility: "any", hideRisk: false, stops: "any", time: "any" })}>
-                      清空筛选
+                      重置所有条件
                     </button>
                     <button type="button" className="secondary-button" onClick={() => commitQuery({ departDate: experience.calendarItems[4]?.date ?? experience.selectedCalendarDate })}>
-                      试试更低价的一天
+                      查看临近低价日
                     </button>
                   </div>
                 </section>
@@ -151,9 +151,9 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
           </>
         ) : (
           <section className="empty-state empty-state--wide">
-            <span className="section-label">当前航线未预置数据</span>
-            <h2>当前城市组合没有预置演示数据</h2>
-            <p>先回到首页从推荐机会进入，会更接近这次 demo 设计好的主链路。</p>
+            <span className="section-label">无可用航线数据</span>
+            <h2>当前城市组合暂无可售航班</h2>
+            <p>我们正在拓展更多航线覆盖。您可返回首页探索其他热门低价发现。</p>
             <div className="deal-grid">
               {featuredDeals.map((deal) => (
                 <Link key={deal.dealId} href={buildResultsHref(deal.targetQuery)} className="deal-card">

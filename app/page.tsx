@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FeaturedDealsGrid } from "@/components/home/featured-deals-grid";
 import { SceneEntryGrid } from "@/components/home/scene-entry-grid";
 import { SearchForm } from "@/components/home/search-form";
-import { DEFAULT_QUERY, HOME_HEADLINE, HOME_TAGLINE, PRODUCT_NAME } from "@/lib/constants";
+import { DEFAULT_QUERY, HOME_HEADLINE, PRODUCT_NAME } from "@/lib/constants";
 import { featuredDeals } from "@/lib/data/featuredDeals";
 import { scenes } from "@/lib/data/scenes";
 import { formatPrice } from "@/lib/utils/date";
@@ -37,34 +37,32 @@ export default function HomePage() {
             <span className="brand-mark__dot" />
             <span>
               <strong>{PRODUCT_NAME}</strong>
-              <small>特价发现平台</small>
+              <small>全球特价航班探索</small>
             </span>
           </Link>
-          <div className="topbar__note">已校验演示航线</div>
         </header>
 
         <div className="hero-grid">
           <div className="hero-copy">
-            <span className="hero-kicker">{HOME_TAGLINE}</span>
+            <span className="hero-kicker">智能计算真实总价</span>
             <h1>{HOME_HEADLINE}</h1>
             <p>
-              这里不是普通搜机票。你会先看到近期值得点开的低价机会，再快速看清它到底便宜在哪，
-              代价又落在托运、退改签还是中转体验上。
+              实时搜索全网低价航班，透明化展示行李费用与退改签政策。相比最低裸价，我们为您筛选最高性价比的出行方案。
             </p>
 
             <div className="hero-points">
-              <span>先看机会，再决定值不值得买</span>
-              <span>总价透明，不只看裸票价</span>
-              <span>规则和风险会直接讲清</span>
+              <span>隐藏成本提醒</span>
+              <span>多维度智能比价</span>
+              <span>真实总价排序</span>
             </div>
 
             <div className="hero-insight-card">
               <div className="hero-insight-card__header">
                 <div>
-                  <span className="section-label">记忆点</span>
-                  <h2>最便宜，不一定最划算</h2>
+                  <span className="section-label">今日关注</span>
+                  <h2>{DEFAULT_QUERY.from} 飞往 {DEFAULT_QUERY.to} 特价</h2>
                 </div>
-                <p>{DEFAULT_QUERY.from} → {DEFAULT_QUERY.to} 的固定演示航线，正好能看见这件事。</p>
+                <p>为您对比最低裸价与最高性价比方案，助您精明决策。</p>
               </div>
 
               <div className="hero-insight-grid">
@@ -108,20 +106,19 @@ export default function HomePage() {
           <div className="hero-panel">
             <SearchForm
               initialQuery={DEFAULT_QUERY}
-              submitLabel="开始看结果"
-              eyebrow="搜索一条航线"
-              title="搜一条线，立刻进入“最便宜 / 最划算”对比"
-              description="默认演示航线已经预置好。你也可以直接换城市和日期，继续用同样的判断方式看票。"
-              signals={["支持直接搜", "结果页继续筛选", "详情抽屉解释代价"]}
-              footerNote="进入结果页后，低价日历、风险筛选和规则解释都会保留在主链路里。"
+              submitLabel="搜索航班"
+              eyebrow="探索行程"
+              title="规划您的下一次出行"
+              description="告诉我们您的计划，为您筛选出真实性价比最高的航班。"
+              signals={["涵盖全部税费", "包含行李测算"]}
             />
           </div>
         </div>
 
         <div className="hero-opportunity-rail">
           <div className="hero-opportunity-rail__copy">
-            <span className="section-label">先逛也可以</span>
-            <h3>这些低价机会，适合直接点进去看</h3>
+            <span className="section-label">近期热门</span>
+            <h3>全球精选特价榜单</h3>
           </div>
 
           <div className="hero-opportunity-rail__list">
@@ -141,10 +138,10 @@ export default function HomePage() {
       <section className="content-section">
         <div className="section-heading">
           <div>
-            <span className="section-label">发现入口</span>
-            <h2>先按出行情境进入，再看哪组低价真的值得点开</h2>
+            <span className="section-label">出游灵感</span>
+            <h2>根据出行偏好发现超值组合</h2>
           </div>
-          <p>这些入口不是“说明模块”，而是已经帮你收束好需求后的起点。每张卡片都代表一类真实的低价判断任务。</p>
+          <p>无论您是倾向周末短途，还是正在物色长假的便宜直飞，这里都有经过智能精选的高优组合。</p>
         </div>
         <SceneEntryGrid scenes={scenes} />
       </section>
@@ -152,10 +149,10 @@ export default function HomePage() {
       <section className="content-section">
         <div className="section-heading">
           <div>
-            <span className="section-label">值得先看</span>
-            <h2>近期更容易出现“低价但需要判断”的航线</h2>
+            <span className="section-label">特价推荐</span>
+            <h2>本周极具性价比的航线发现</h2>
           </div>
-          <p>不是把热门目的地堆出来，而是把更适合比较总价、规则和隐藏成本的机会先摆到台面上。</p>
+          <p>基于当前票价与历史均价对比，这些航线正处于适合入手的价格区间。</p>
         </div>
         <FeaturedDealsGrid deals={featuredDeals} />
       </section>
@@ -163,14 +160,14 @@ export default function HomePage() {
       <section className="content-section content-section--compact">
         <div className="disclaimer-card">
           <div>
-            <span className="section-label">产品判断</span>
-            <h3>看见低价，也要看懂低价为什么成立</h3>
+            <span className="section-label">我们的服务标准</span>
+            <h3>致力于透明、可信的决策辅助</h3>
           </div>
-          <p>捡漏机票的角色不是替你下单，而是把价格、代价和适合人群摆清楚，让你在几秒内知道这张票值不值得继续看。</p>
+          <p>我们将复杂的票价政策转化为清晰的对比指标，助您快速判断该航班是否适合您的出行需求。</p>
           <div className="status-row">
-            <span className="status-badge status-badge--neutral">发现机会</span>
-            <span className="status-badge status-badge--positive">规则透明</span>
-            <span className="status-badge status-badge--accent">判断值不值买</span>
+            <span className="status-badge status-badge--positive">数据真实</span>
+            <span className="status-badge status-badge--positive">费用全透明</span>
+            <span className="status-badge status-badge--positive">智能分析预警</span>
           </div>
         </div>
       </section>

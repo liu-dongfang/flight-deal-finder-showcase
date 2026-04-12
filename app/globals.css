@@ -8,12 +8,12 @@
   --muted-strong: #475467;
   --line: rgba(22, 32, 43, 0.08);
   --line-strong: rgba(22, 32, 43, 0.14);
-  --shadow-sm: 0 10px 30px rgba(17, 24, 39, 0.04);
-  --shadow-md: 0 18px 48px rgba(17, 24, 39, 0.07);
-  --shadow-lg: 0 32px 72px rgba(10, 22, 34, 0.18);
-  --accent: #0f766e;
-  --accent-strong: #0b5f58;
-  --accent-soft: rgba(15, 118, 110, 0.1);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --accent: #1967d2;
+  --accent-strong: #174ea6;
+  --accent-soft: #e8f0fe;
   --positive: #1f7a5c;
   --positive-soft: rgba(31, 122, 92, 0.1);
   --warning: #b15b1f;
@@ -89,8 +89,8 @@ button {
 .empty-state,
 .disclaimer-card {
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 28px;
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
   box-shadow: var(--shadow-sm);
 }
 
@@ -135,9 +135,8 @@ button {
 .brand-mark__dot {
   width: 14px;
   height: 14px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #35b4aa 0%, var(--accent) 100%);
-  box-shadow: 0 0 0 6px rgba(53, 180, 170, 0.14);
+  border-radius: 3px;
+  background: var(--accent);
 }
 
 .topbar__note,
@@ -152,15 +151,13 @@ button {
 .deal-card__kicker {
   display: inline-flex;
   align-items: center;
-  min-height: 28px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.86);
-  border: 1px solid rgba(255, 255, 255, 0.32);
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(25, 103, 210, 0.08);
   color: var(--accent-strong);
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
@@ -176,12 +173,12 @@ button {
 .status-badge {
   display: inline-flex;
   align-items: center;
-  min-height: 30px;
-  padding: 8px 12px;
-  border-radius: 999px;
+  min-height: 24px;
+  padding: 4px 10px;
+  border-radius: 6px;
   border: 1px solid transparent;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   line-height: 1.2;
 }
 
@@ -255,24 +252,21 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  padding: 10px 16px;
-  border-radius: 14px;
-  border: 1px solid var(--line);
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--line-strong);
   background: var(--surface);
   color: var(--text);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
 }
 
 .primary-button {
-  min-height: 52px;
-  padding: 14px 22px;
   border: 0;
-  background: linear-gradient(135deg, var(--accent) 0%, #17938a 100%);
+  background: var(--accent);
   color: white;
-  box-shadow: 0 14px 30px rgba(15, 118, 110, 0.22);
 }
 
 .primary-button--large {
@@ -289,20 +283,20 @@ button {
 }
 
 .trip-switch button {
-  min-height: 38px;
-  padding: 10px 14px;
-  border-radius: 12px;
+  min-height: 32px;
+  padding: 8px 16px;
+  border-radius: 6px;
   background: transparent;
   color: var(--muted);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
 }
 
 .trip-switch button.is-active {
   background: var(--surface);
   color: var(--text);
-  box-shadow: 0 8px 18px rgba(17, 24, 39, 0.06);
+  box-shadow: var(--shadow-sm);
 }
 
 .filter-pills button,
@@ -327,8 +321,7 @@ button {
 }
 
 .primary-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 36px rgba(15, 118, 110, 0.28);
+  background: var(--accent-strong);
 }
 
 .secondary-button:hover,
@@ -369,24 +362,13 @@ button {
 .hero-shell {
   position: relative;
   overflow: hidden;
-  padding: 34px;
-  border: 0;
-  background:
-    radial-gradient(circle at top right, rgba(83, 200, 190, 0.18), transparent 28%),
-    linear-gradient(135deg, #0f1b23 0%, #162430 52%, #223848 100%);
-  color: white;
-  box-shadow: var(--shadow-lg);
+  padding: 40px;
+  background: var(--surface);
+  color: var(--text);
 }
 
-.hero-shell::before {
-  content: "";
-  position: absolute;
-  inset: auto auto -120px -80px;
-  width: 280px;
-  height: 280px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  filter: blur(12px);
+.hero-shell .brand-mark small {
+  color: var(--muted);
 }
 
 .hero-shell .brand-mark small {
@@ -432,16 +414,12 @@ button {
 .hero-kicker {
   display: inline-flex;
   align-items: center;
-  min-height: 30px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .hero-copy h1,
@@ -476,20 +454,19 @@ button {
 .hero-copy p,
 .hero-insight-card p,
 .hero-opportunity-card p {
-  color: rgba(255, 255, 255, 0.76);
+  color: var(--muted);
 }
 
 .hero-points span {
   display: inline-flex;
   align-items: center;
-  min-height: 36px;
-  padding: 9px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.9);
+  min-height: 32px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: var(--surface-alt);
+  color: var(--text);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .hero-insight-card {
@@ -497,9 +474,9 @@ button {
   gap: 16px;
   margin-top: 4px;
   padding: 22px;
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+  border-radius: 16px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-alt);
 }
 
 .hero-insight-card__header h2,
@@ -530,14 +507,15 @@ button {
 .hero-compare-card {
   display: grid;
   gap: 12px;
-  padding: 18px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
 }
 
 .hero-compare-card--highlight {
-  background: linear-gradient(180deg, rgba(15, 118, 110, 0.2), rgba(255, 255, 255, 0.06));
+  border-color: var(--accent);
+  box-shadow: var(--shadow-sm);
 }
 
 .hero-compare-card__top {
@@ -565,7 +543,7 @@ button {
   gap: 18px;
   margin-top: 26px;
   padding-top: 26px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid var(--line-strong);
 }
 
 .hero-opportunity-rail__copy h3 {
@@ -586,16 +564,16 @@ button {
   justify-content: space-between;
   gap: 12px;
   padding: 16px 18px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
 }
 
 .hero-opportunity-card span {
   display: block;
   font-size: 15px;
-  font-weight: 800;
-  color: white;
+  font-weight: 600;
+  color: var(--text);
 }
 
 .hero-opportunity-card p {
@@ -606,25 +584,24 @@ button {
 .hero-opportunity-card strong {
   font-size: 22px;
   letter-spacing: -0.03em;
-  color: white;
+  color: var(--accent-strong);
 }
 
 .search-form {
   width: 100%;
   display: grid;
   gap: 20px;
-  padding: 26px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.96);
-  color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 24px 48px rgba(9, 17, 24, 0.12);
+  padding: 24px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-sm);
 }
 
 .search-form--compact {
-  padding: 22px;
-  background: linear-gradient(180deg, #ffffff 0%, #fafcfd 100%);
-  border: 1px solid var(--line);
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
   box-shadow: none;
 }
 
@@ -641,13 +618,13 @@ button {
 .search-form__signal-row span {
   display: inline-flex;
   align-items: center;
-  min-height: 30px;
-  padding: 8px 12px;
-  border-radius: 999px;
+  min-height: 26px;
+  padding: 4px 10px;
+  border-radius: 6px;
   background: var(--accent-soft);
   color: var(--accent-strong);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .search-grid {
@@ -679,11 +656,9 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  color: var(--muted-strong);
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .field__label small {
@@ -695,21 +670,21 @@ button {
 .field input,
 .field select {
   width: 100%;
-  min-height: 56px;
-  padding: 0 16px;
-  border-radius: 16px;
+  min-height: 48px;
+  padding: 0 14px;
+  border-radius: 8px;
   border: 1px solid var(--line-strong);
   background: var(--surface);
   color: var(--text);
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .field input:focus,
 .field select:focus {
   outline: none;
-  border-color: rgba(15, 118, 110, 0.3);
-  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
 }
 
 .search-form__footer {
@@ -786,11 +761,11 @@ button {
 .deal-card,
 .flight-card,
 .empty-state {
-  padding: 22px;
+  padding: 20px;
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  box-shadow: none;
 }
 
 .scene-card {
