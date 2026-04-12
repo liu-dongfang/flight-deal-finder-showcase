@@ -28,14 +28,15 @@ export default function HomePage() {
         {/* 两栏构图：左侧品牌文案 + 右侧搜索控制台 */}
         <div className="hero-stage">
           <div className="hero-copy">
-            <span className="hero-kicker">发现机会 · 看清代价 · 做出决策</span>
-            <h1>开始找真正值得买的机票</h1>
-            <p>先看低价，再看代价，再决定现在买不买。</p>
+            <div className="hero-copy__primary">
+              <span className="hero-kicker">发现机会 · 看清代价 · 做出决策</span>
+              <h1>开始找真正值得买的机票</h1>
+              <p>先看低价，再看代价，再决定现在买不买。</p>
+            </div>
             <div className="hero-points">
               <span>含税总价</span>
-              <span>行李规则透明</span>
+              <span>规则全透明</span>
               <span>AI 决策建议</span>
-              <span>低价日历</span>
             </div>
           </div>
 
@@ -43,7 +44,7 @@ export default function HomePage() {
             <SearchForm
               initialQuery={DEFAULT_QUERY}
               submitLabel="开始找机会"
-              title="搜索航班"
+              title="搜索航线"
               secondaryActionLabel="先看今日机会"
               secondaryActionHref="#daily-best"
             />
