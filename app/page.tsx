@@ -35,8 +35,12 @@ export default function HomePage() {
             </div>
             <div className="hero-points">
               <span>含税总价</span>
-              <span>规则全透明</span>
-              <span>AI 决策建议</span>
+              <span className="hero-point--teal">低价日历</span>
+              <span className="hero-point--blue">AI 决策建议</span>
+            </div>
+            <div className="hero-hint-row">
+              <span className="hero-hint-badge">改期提示</span>
+              <span className="hero-hint-text">改到本月最低日，最多省 ¥1,800</span>
             </div>
           </div>
 
