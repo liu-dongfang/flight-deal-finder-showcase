@@ -50,11 +50,11 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Section anchor pills — Hero 底部快捷跳转 */}
+          {/* Section anchor pills — Hero 底部任务入口 */}
           <div className="hero-anchors">
-            <a href="#daily-best" className="hero-anchor">今日最佳机会 ↓</a>
-            <a href="#scene-section" className="hero-anchor">按场景发现 ↓</a>
-            <a href="#price-rules" className="hero-anchor">价格说明 ↓</a>
+            <a href="#daily-best" className="hero-anchor">看今日机会</a>
+            <a href="#scene-section" className="hero-anchor">按场景筛</a>
+            <a href="#price-rules" className="hero-anchor">先看价格说明</a>
           </div>
         </section>
 
