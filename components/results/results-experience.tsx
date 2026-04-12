@@ -10,6 +10,7 @@ import { FlightCard } from "@/components/results/flight-card";
 import { FlightDetailsDrawer } from "@/components/results/flight-details-drawer";
 import { RecommendationCards } from "@/components/results/recommendation-cards";
 import { SearchSummaryBar } from "@/components/results/search-summary-bar";
+import { StickyDecisionBar } from "@/components/results/sticky-decision-bar";
 import { ThreePathConclusions } from "@/components/results/three-path-conclusions";
 import { PRODUCT_NAME } from "@/lib/constants";
 import { featuredDeals } from "@/lib/data/featuredDeals";
@@ -71,6 +72,21 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
     comparisonFlights.length > 0
       ? Math.min(...comparisonFlights.map((flight) => flight.totalPrice))
       : 0;
+
+  /* 为粘性决策条推导最优数据 */
+  const bestValueFlight = useMemo(() => {
+    if (comparisonFlights.length === 0) return null;
+    return [...comparisonFlights].sort(
+      (a, b) => b.bestValueScore - a.bestValueScore || a.totalPrice - b.totalPrice
+    )[0] ?? null;
+  }, [comparisonFlights]);
+
+  const bestCalendarItem = useMemo(() => {
+    if (experience.calendarItems.length === 0) return null;
+    return [...experience.calendarItems].sort(
+      (a, b) => a.lowestTotalPrice - b.lowestTotalPrice
+    )[0] ?? null;
+  }, [experience.calendarItems]);
 
   return (
     <main className="page page-results">
@@ -221,6 +237,12 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
       </div>
 
       <FlightDetailsDrawer flight={selectedFlight} onClose={() => setSelectedFlightId(null)} />
+
+      <StickyDecisionBar
+        lowestPrice={lowestPrice}
+        bestValueFlight={bestValueFlight}
+        bestCalendarItem={bestCalendarItem}
+      />
     </main>
   );
 }

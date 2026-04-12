@@ -2,6 +2,8 @@ import Link from "next/link";
 import { DailyBestStrip } from "@/components/home/daily-best-strip";
 import { SceneEntryGrid } from "@/components/home/scene-entry-grid";
 import { SearchForm } from "@/components/home/search-form";
+import { SignalStrip } from "@/components/home/signal-strip";
+import { StickyNav } from "@/components/home/sticky-nav";
 import { DEFAULT_QUERY, PRODUCT_NAME } from "@/lib/constants";
 import { scenes } from "@/lib/data/scenes";
 import { buildResultsHref } from "@/lib/utils/query";
@@ -12,6 +14,8 @@ export default function HomePage() {
 
   return (
     <main className="page page-home">
+      <StickyNav />
+
       {/* Hero Shell */}
       <section className="hero-shell">
         <header className="topbar">
@@ -56,6 +60,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 实时信号条 */}
+      <SignalStrip />
+
       {/* 今日最佳机会 */}
       <section id="daily-best" className="daily-best-section">
         <div className="daily-best-section__header">
@@ -66,7 +73,7 @@ export default function HomePage() {
       </section>
 
       {/* 场景探索 */}
-      <section className="content-section">
+      <section id="scene-section" className="content-section">
         <div className="section-heading">
           <div>
             <span className="section-label">场景探索</span>
