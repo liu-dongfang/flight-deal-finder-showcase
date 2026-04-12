@@ -86,8 +86,7 @@ export default function HomePage() {
               submitLabel="开始找低价"
               eyebrow="主搜索"
               title="开始找票"
-              description="选城市和日期，我们同时给你最低价和更划算的方案。"
-              footerNote="进入结果页后，可继续按时段、行李和退改筛选。"
+              description="输入城市和日期，先看最低价，再看更划算。"
               secondaryActionLabel="先看本周机会"
               secondaryActionHref="#weekly-opportunities"
             />
