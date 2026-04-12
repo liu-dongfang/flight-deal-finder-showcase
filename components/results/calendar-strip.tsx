@@ -19,18 +19,23 @@ export function CalendarStrip({
     canSave && selectedItem && cheapestDay
       ? selectedItem.lowestTotalPrice - cheapestDay.lowestTotalPrice
       : 0;
-  const headline = canSave && cheapestDay
-    ? `当前已选 ${formatMonthDay(selectedDate)}，7 天内最低在 ${formatMonthDay(cheapestDay.date)}，可再省 ${formatPrice(savings)}`
-    : `当前已选 ${formatMonthDay(selectedDate)}，已经是近 7 天最低，接下来优先比较规则差异`;
+
+  const advice = canSave && cheapestDay
+    ? `建议改期：${formatMonthDay(cheapestDay.date)} 是近 7 天最低价，改过去最多省 ${formatPrice(savings)}。如果日期锁定，优先比较更划算方案。`
+    : `当前选择 ${formatMonthDay(selectedDate)} 已是近 7 天最低价，无需等待改期，直接比较各方案规则差异。`;
 
   return (
     <section className="calendar-strip">
       <div className="calendar-strip__header">
         <div>
-          <span className="section-label">低价日历</span>
+          <span className="section-label">日期决策</span>
           <h2>改一天能省多少？</h2>
         </div>
-        <p>{headline}</p>
+      </div>
+
+      <div className="calendar-strip__decision">
+        <div className="calendar-strip__decision-icon" />
+        <p>{advice}</p>
       </div>
 
       <div className="calendar-strip__grid">

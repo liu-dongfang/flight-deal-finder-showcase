@@ -54,36 +54,45 @@ export function FlightDetailsDrawer({
   return (
     <div className="drawer-overlay" role="presentation" onClick={onClose}>
       <aside className="drawer" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
+
+        {/* 1. 结论 */}
         <div className="drawer__header">
           <div>
-            <span className="section-label">看清代价</span>
+            <span className={`status-badge status-badge--${getDecisionBadgeTone(flight)}`}>
+              {decisionHeadline}
+            </span>
             <h2>
               {flight.route.originCity} → {flight.route.destinationCity}
             </h2>
             <p>
-              {flight.airlineName} {flight.flightNumber} · {formatPrice(flight.totalPrice)}
+              {flight.airlineName} {flight.flightNumber}
             </p>
           </div>
-          <button type="button" className="drawer__close" onClick={onClose}>
-            关闭
-          </button>
+          <div className="drawer__header-right">
+            <div className="drawer__price">
+              <strong>{formatPrice(flight.totalPrice)}</strong>
+              <span>含税总价</span>
+              <small>
+                {flight.priceGapFromCheapest === 0
+                  ? "当前最低价"
+                  : `比最低价高 ${formatPrice(flight.priceGapFromCheapest)}`}
+              </small>
+            </div>
+            <button type="button" className="drawer__close" onClick={onClose}>
+              关闭
+            </button>
+          </div>
         </div>
 
-        <section className="drawer-hero">
-          <div className="drawer-hero__decision">
-            <span className={`status-badge status-badge--${getDecisionBadgeTone(flight)}`}>{decisionHeadline}</span>
-            <h3>{getFlightQuickTake(flight)}</h3>
-            <p>{flight.aiReview.detail}</p>
-          </div>
-
-          <div className="drawer-hero__price">
-            <strong>{formatPrice(flight.totalPrice)}</strong>
-            <span>含税总价</span>
-            <small>{flight.priceGapFromCheapest === 0 ? "当前最低价" : `比最低价高 ${formatPrice(flight.priceGapFromCheapest)}`}</small>
-          </div>
-        </section>
-
         <div className="drawer__body">
+          {/* 2. 一句话建议 */}
+          <section className="drawer-card drawer-card--verdict">
+            <h3>一句话建议</h3>
+            <p className="drawer-verdict-text">{getFlightQuickTake(flight)}</p>
+            <p className="drawer-card__hint">{flight.aiReview.detail}</p>
+          </section>
+
+          {/* 3. 你得到什么 */}
           <section className="drawer-card">
             <h3>你得到什么</h3>
             <ul className="detail-list detail-list--stacked">
@@ -95,8 +104,9 @@ export function FlightDetailsDrawer({
             </ul>
           </section>
 
+          {/* 4. 你付出什么 */}
           <section className="drawer-card">
-            <h3>你付出的代价</h3>
+            <h3>你付出什么</h3>
             <ul className="detail-list detail-list--stacked">
               {visibleTradeoffs.map((item) => (
                 <li key={item}>
@@ -106,27 +116,29 @@ export function FlightDetailsDrawer({
             </ul>
           </section>
 
+          {/* 5. 适合谁 */}
           <section className="drawer-card">
-            <h3>适合谁 / 不适合谁</h3>
+            <h3>适合谁</h3>
             <ul className="detail-list">
               <li>
-                <span>适合谁</span>
+                <span>适合</span>
                 <strong>{getFlightSuitableAudience(flight)}</strong>
               </li>
               <li>
-                <span>不适合谁</span>
+                <span>不适合</span>
                 <strong>{getFlightUnsuitableAudience(flight)}</strong>
               </li>
             </ul>
           </section>
 
+          {/* 6. 完整规则 */}
           <section className="drawer-card">
-            <h3>规则明细</h3>
+            <h3>完整规则</h3>
             <ul className="detail-list">
               <li>
                 <span>起降时间</span>
                 <strong>
-                  {flight.departTimeLocal} - {flight.arriveTimeLocal}
+                  {flight.departTimeLocal} → {flight.arriveTimeLocal}
                 </strong>
               </li>
               <li>
@@ -158,7 +170,8 @@ export function FlightDetailsDrawer({
                   <span>中转提醒</span>
                   <strong>
                     {flight.isSelfTransfer ? "自助中转" : "非自助中转"} ·{" "}
-                    {flight.isCrossTerminal ? "涉及跨航站楼" : "无需跨航站楼"} · 衔接 {flight.transferMinutes} 分钟
+                    {flight.isCrossTerminal ? "涉及跨航站楼" : "无需跨航站楼"} · 衔接{" "}
+                    {flight.transferMinutes} 分钟
                   </strong>
                 </li>
               ) : null}

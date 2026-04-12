@@ -8,7 +8,9 @@ import { CalendarStrip } from "@/components/results/calendar-strip";
 import { FilterBar } from "@/components/results/filter-bar";
 import { FlightCard } from "@/components/results/flight-card";
 import { FlightDetailsDrawer } from "@/components/results/flight-details-drawer";
+import { RecommendationCards } from "@/components/results/recommendation-cards";
 import { SearchSummaryBar } from "@/components/results/search-summary-bar";
+import { ThreePathConclusions } from "@/components/results/three-path-conclusions";
 import { PRODUCT_NAME } from "@/lib/constants";
 import { featuredDeals } from "@/lib/data/featuredDeals";
 import type { FlightResult, SearchQuery, SortMode } from "@/lib/types";
@@ -44,7 +46,6 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
     if (!selectedFlightId) {
       return null;
     }
-
     return experience.flights.find((flight) => flight.flightId === selectedFlightId) ?? null;
   }, [experience.flights, selectedFlightId]);
 
@@ -85,6 +86,7 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
       </header>
 
       <div className="results-layout">
+        {/* 1. 路线摘要条 */}
         <SearchSummaryBar
           query={experience.query}
           route={experience.route}
@@ -93,13 +95,12 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
           lowestPrice={lowestPrice}
           searchOpen={searchOpen}
           onToggleSearch={() => setSearchOpen((current) => !current)}
-          comparisonFlights={comparisonFlights}
-          calendarItems={experience.calendarItems}
           sort={experience.query.sort}
           onChangeSort={updateSort}
           priceUpdatedAt="11:20"
         />
 
+        {/* 内联搜索面板 */}
         {searchOpen ? (
           <div className="inline-search-panel">
             <SearchForm
@@ -114,6 +115,16 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
 
         {experience.route ? (
           <>
+            {/* 2. 三路结论卡 */}
+            {comparisonFlights.length > 0 && (
+              <ThreePathConclusions
+                flights={comparisonFlights}
+                calendarItems={experience.calendarItems}
+                query={experience.query}
+              />
+            )}
+
+            {/* 3. 日期决策模块 */}
             <CalendarStrip
               items={experience.calendarItems}
               selectedDate={experience.selectedCalendarDate}
@@ -124,26 +135,62 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
               <FilterBar query={experience.query} onChange={commitQuery} />
 
               {experience.flights.length > 0 ? (
-                <div className="flight-list">
-                  {experience.flights.map((flight, index) => (
-                    <FlightCard
-                      key={flight.flightId}
-                      flight={flight}
-                      rank={index + 1}
-                      onOpen={() => setSelectedFlightId(flight.flightId)}
-                    />
-                  ))}
-                </div>
+                <>
+                  {/* 4. 推荐方案卡区 */}
+                  <RecommendationCards
+                    flights={experience.flights}
+                    onOpen={(flightId) => setSelectedFlightId(flightId)}
+                  />
+
+                  {/* 5. 完整列表 */}
+                  <div className="results-list-header">
+                    <span className="section-label">完整列表</span>
+                    <span className="results-list-count">
+                      共 {experience.flights.length} 条结果
+                    </span>
+                  </div>
+                  <div className="flight-list">
+                    {experience.flights.map((flight, index) => (
+                      <FlightCard
+                        key={flight.flightId}
+                        flight={flight}
+                        rank={index + 1}
+                        onOpen={() => setSelectedFlightId(flight.flightId)}
+                      />
+                    ))}
+                  </div>
+                </>
               ) : (
                 <section className="empty-state">
                   <span className="section-label">暂无符合条件的航班</span>
                   <h2>未找到完全满足当前筛选的特价方案</h2>
                   <p>建议您放宽筛选条件，或查看临近日期的高性价比航班。</p>
                   <div className="chip-row">
-                    <button type="button" className="secondary-button" onClick={() => commitQuery({ baggage: "any", flexibility: "any", hideRisk: false, stops: "any", time: "any" })}>
+                    <button
+                      type="button"
+                      className="secondary-button"
+                      onClick={() =>
+                        commitQuery({
+                          baggage: "any",
+                          flexibility: "any",
+                          hideRisk: false,
+                          stops: "any",
+                          time: "any"
+                        })
+                      }
+                    >
                       重置所有条件
                     </button>
-                    <button type="button" className="secondary-button" onClick={() => commitQuery({ departDate: experience.calendarItems[4]?.date ?? experience.selectedCalendarDate })}>
+                    <button
+                      type="button"
+                      className="secondary-button"
+                      onClick={() =>
+                        commitQuery({
+                          departDate:
+                            experience.calendarItems[4]?.date ?? experience.selectedCalendarDate
+                        })
+                      }
+                    >
                       查看临近低价日
                     </button>
                   </div>
