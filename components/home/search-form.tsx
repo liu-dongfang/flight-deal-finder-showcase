@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { startTransition, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CALENDAR_WINDOW_END, CALENDAR_WINDOW_START, DEFAULT_QUERY } from "@/lib/constants";
@@ -16,6 +17,8 @@ interface SearchFormProps {
   description?: string;
   signals?: string[];
   footerNote?: string;
+  secondaryActionLabel?: string;
+  secondaryActionHref?: string;
 }
 
 const originCities = getDistinctOriginCities();
@@ -23,13 +26,15 @@ const destinationCities = getDistinctDestinationCities();
 
 export function SearchForm({
   initialQuery,
-  submitLabel = "搜索特价航班",
+  submitLabel = "开始找低价",
   compact = false,
   eyebrow,
   title,
   description,
   signals,
-  footerNote
+  footerNote,
+  secondaryActionLabel,
+  secondaryActionHref
 }: SearchFormProps) {
   const router = useRouter();
   const [form, setForm] = useState<SearchQuery>({ ...DEFAULT_QUERY, ...initialQuery });
@@ -57,19 +62,20 @@ export function SearchForm({
     <form className={`search-form ${compact ? "search-form--compact" : ""}`} onSubmit={handleSubmit}>
       <div className="search-form__header">
         <div className="search-form__heading">
-          <span className="section-label">{eyebrow ?? (compact ? "重新搜索" : "探索航班")}</span>
-          <h3>{title ?? (compact ? "调整您的搜索条件" : "搜索包含全部费用的真实特价")}</h3>
+          <span className="section-label">{eyebrow ?? (compact ? "重新搜索" : "主搜索")}</span>
+          <h3>{title ?? (compact ? "调整您的搜索条件" : "开始找票")}</h3>
           <p className="search-form__description">
             {description ??
               (compact
                 ? "更新条件，我们将继续为您比对真实性价比。"
-                : "我们为您呈现的不仅仅是裸票价格，还会清楚展示行李、退改签等隐藏费用，助您理性决策。")}
+                : "选城市和日期，我们同时给你最低价和更划算的方案。")}
           </p>
         </div>
         <div className="trip-switch">
           <button
             type="button"
             className={form.tripType === "one_way" ? "is-active" : ""}
+            aria-pressed={form.tripType === "one_way"}
             onClick={() => updateTripType("one_way")}
           >
             单程
@@ -77,6 +83,7 @@ export function SearchForm({
           <button
             type="button"
             className={form.tripType === "round_trip" ? "is-active" : ""}
+            aria-pressed={form.tripType === "round_trip"}
             onClick={() => updateTripType("round_trip")}
           >
             往返
@@ -157,10 +164,17 @@ export function SearchForm({
       </div>
 
       <div className="search-form__footer search-form__footer--plain">
-        <p>{footerNote ?? (compact ? "应用新条件后，您仍可以使用当前视图比价。" : "我们将依据最佳性价比规则为您展示航班列表，支持多维度对比。")}</p>
-        <button type="submit" className="primary-button primary-button--large">
-          {submitLabel}
-        </button>
+        <p>{footerNote ?? (compact ? "应用新条件后，您仍可以使用当前视图比价。" : "进入结果页后，可继续按时段、行李和退改筛选。")}</p>
+        <div className="search-form__actions">
+          {secondaryActionLabel && secondaryActionHref ? (
+            <Link href={secondaryActionHref} className="secondary-button">
+              {secondaryActionLabel}
+            </Link>
+          ) : null}
+          <button type="submit" className="primary-button primary-button--large">
+            {submitLabel}
+          </button>
+        </div>
       </div>
     </form>
   );

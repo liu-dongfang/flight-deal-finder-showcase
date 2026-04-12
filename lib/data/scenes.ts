@@ -52,7 +52,7 @@ export const scenes: SceneRecord[] = [
   {
     sceneId: "holiday_leak",
     title: "小长假捡漏",
-    subtitle: "把日期拉近 7 天窗口，看看哪一天的总价更值得下手。",
+    subtitle: "把日期拉近 7 天窗口，看看哪一天的总价更划算。",
     presetQuery: {
       from: "深圳",
       to: "新加坡",

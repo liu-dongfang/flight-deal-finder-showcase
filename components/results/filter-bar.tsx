@@ -15,8 +15,8 @@ const timeOptions = [
 
 const stopOptions = [
   { label: "不限", value: "any" },
-  { label: "直飞", value: "direct" },
-  { label: "1 次中转", value: "one_stop" }
+  { label: "仅直飞", value: "direct" },
+  { label: "可中转", value: "one_stop" }
 ] as const;
 
 const baggageOptions = [
@@ -27,8 +27,8 @@ const baggageOptions = [
 
 const flexibilityOptions = [
   { label: "不限", value: "any" },
-  { label: "较灵活", value: "flexible" },
-  { label: "严格限制", value: "strict" }
+  { label: "更好改签", value: "flexible" },
+  { label: "严格退改", value: "strict" }
 ] as const;
 
 function FilterGroup<T extends string>({
@@ -51,6 +51,7 @@ function FilterGroup<T extends string>({
             key={option.value}
             type="button"
             className={value === option.value ? "is-active" : ""}
+            aria-pressed={value === option.value}
             onClick={() => onChange(option.value)}
           >
             {option.label}
@@ -74,19 +75,20 @@ export function FilterBar({ query, onChange }: FilterBarProps) {
     <div className="filter-bar">
       <div className="filter-bar__header">
         <div className="filter-bar__title">
-          <span className="section-label">工具栏</span>
+          <span className="section-label">筛选工具</span>
           <p>
             {activeFilterCount > 0
-              ? `已启用 ${activeFilterCount} 项筛选，当前结果更偏向你真正能接受的那类票。`
-              : "先缩小范围，再看最便宜和最划算到底差在哪。"}
+              ? `已启用 ${activeFilterCount} 项筛选。先避开不想承受的代价，再比较价格差值。`
+              : "先收掉不想承受的代价，再比较哪一张更划算。"}
           </p>
         </div>
         <button
           type="button"
           className={`risk-toggle ${query.hideRisk ? "is-active" : ""}`}
+          aria-pressed={query.hideRisk}
           onClick={() => onChange({ hideRisk: !query.hideRisk })}
         >
-          {query.hideRisk ? "已隐藏高风险" : "隐藏高风险"}
+          {query.hideRisk ? "已避开高代价航班" : "避开高代价航班"}
         </button>
       </div>
 

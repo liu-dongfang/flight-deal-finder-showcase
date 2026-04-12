@@ -81,13 +81,16 @@ button {
   gap: 24px;
 }
 
+.page-home {
+  gap: 40px;
+}
+
 .content-section,
 .summary-card,
 .inline-search-panel,
 .calendar-strip,
 .results-panel,
-.empty-state,
-.disclaimer-card {
+.empty-state {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -104,13 +107,12 @@ button {
 .section-heading,
 .search-form__header,
 .search-form__footer,
-.summary-card,
 .calendar-strip__header,
 .filter-bar__header,
 .filter-bar__header,
-.flight-card__review,
 .drawer__header,
-.deal-card__header {
+.deal-card__header,
+.deal-card__topline {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -239,8 +241,7 @@ button {
 .trip-switch button,
 .scene-card,
 .deal-card,
-.flight-card,
-.hero-opportunity-card {
+.flight-card {
   transition:
     transform 160ms ease,
     border-color 160ms ease,
@@ -300,6 +301,7 @@ button {
 .trip-switch button.is-active {
   background: var(--surface);
   color: var(--text);
+  border: 1px solid rgba(26, 115, 232, 0.18);
   box-shadow: var(--shadow-sm);
 }
 
@@ -317,6 +319,7 @@ button {
   background: var(--accent-soft);
   border-color: rgba(15, 118, 110, 0.18);
   color: var(--accent-strong);
+  box-shadow: inset 0 0 0 1px rgba(26, 115, 232, 0.08);
 }
 
 .sort-option,
@@ -341,8 +344,7 @@ button {
 
 .scene-card:hover,
 .deal-card:hover,
-.flight-card:hover,
-.hero-opportunity-card:hover {
+.flight-card:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-md);
 }
@@ -357,7 +359,6 @@ button {
 .sort-option:focus-visible,
 .scene-card:focus-visible,
 .deal-card:focus-visible,
-.hero-opportunity-card:focus-visible,
 .flight-card:focus-visible {
   outline: none;
   box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.16);
@@ -366,8 +367,10 @@ button {
 .hero-shell {
   position: relative;
   overflow: hidden;
-  padding: 48px;
-  background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);
+  padding: 40px 44px 44px;
+  background:
+    radial-gradient(circle at top right, rgba(75, 145, 230, 0.18), transparent 34%),
+    linear-gradient(145deg, #0f172a 0%, #182537 58%, #1d2f45 100%);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -385,17 +388,13 @@ button {
 }
 
 .hero-shell .brand-mark small {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.hero-shell .brand-mark small {
   color: rgba(255, 255, 255, 0.62);
 }
 
 .topbar__note {
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .results-topbar {
@@ -416,8 +415,8 @@ button {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(400px, 0.9fr);
-  gap: 28px;
+  grid-template-columns: minmax(0, 1.08fr) minmax(380px, 0.92fr);
+  gap: 32px;
   margin-top: 28px;
   align-items: stretch;
 }
@@ -425,20 +424,21 @@ button {
 .hero-copy {
   display: grid;
   align-content: start;
-  gap: 18px;
+  gap: 20px;
 }
 
 .hero-kicker {
   display: inline-flex;
   align-items: center;
-  padding: 6px 14px;
-  border-radius: 8px;
-  background: rgba(26, 115, 232, 0.15);
-  color: #8ab4f8;
+  width: fit-content;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.72);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  border: 1px solid rgba(138, 180, 248, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .hero-copy h1,
@@ -448,8 +448,9 @@ button {
 }
 
 .hero-copy h1 {
-  font-size: clamp(44px, 6vw, 72px);
-  line-height: 1.02;
+  max-width: 640px;
+  font-size: clamp(42px, 5.8vw, 66px);
+  line-height: 1.04;
 }
 
 .hero-copy p,
@@ -462,102 +463,94 @@ button {
 .flight-card__summary,
 .empty-state p,
 .drawer-card p,
-.disclaimer-card p,
-.hero-opportunity-card p,
 .scene-card p,
 .deal-card__insight {
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 1.65;
 }
 
-.hero-copy p,
-.hero-opportunity-card p {
+.hero-copy p {
+  max-width: 560px;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
   color: rgba(255, 255, 255, 0.85);
-}
-
-.hero-insight-card p {
-  color: var(--muted);
 }
 
 .hero-points span {
   display: inline-flex;
   align-items: center;
-  min-height: 34px;
+  min-height: 36px;
   padding: 6px 14px;
-  border-radius: 8px;
+  border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
   color: white;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.hero-insight-card {
+.hero-example-card {
   display: grid;
-  gap: 16px;
-  margin-top: 8px;
-  padding: 24px;
-  border-radius: 16px;
+  gap: 18px;
+  max-width: 520px;
+  padding: 22px;
+  border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
 }
 
-.hero-insight-card__header h2 {
+.hero-example-card__header h2 {
   color: white;
 }
 
-.hero-insight-card__header h2,
+.hero-example-card__header h2,
 .section-heading h2,
 .search-form__header h3,
 .sort-switch__copy h2,
 .calendar-strip__header h2,
-.empty-state h2,
-.disclaimer-card h3 {
+.empty-state h2 {
   margin: 10px 0 0;
   font-size: 30px;
   line-height: 1.14;
   letter-spacing: -0.04em;
 }
 
-.hero-insight-card__header p {
-  max-width: 280px;
-  margin: 0;
-  font-size: 14px;
-}
-
-.hero-insight-grid {
+.hero-example-card__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
 
-.hero-compare-card {
+.hero-example-stat {
   display: grid;
-  gap: 12px;
-  padding: 16px;
-  border-radius: 12px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  color: var(--text);
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.hero-compare-card--highlight {
-  border: 2px solid var(--accent);
-  box-shadow: 0 8px 24px var(--accent-glow);
-  transform: translateY(-2px);
+.hero-example-stat span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-.hero-compare-card__top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.hero-compare-card__top strong {
+.hero-example-stat strong {
+  color: white;
   font-size: 34px;
+  line-height: 1;
   letter-spacing: -0.05em;
+}
+
+.hero-example-stat--highlight {
+  background: rgba(26, 115, 232, 0.2);
+  border-color: rgba(138, 180, 248, 0.28);
+  box-shadow: 0 12px 28px rgba(26, 115, 232, 0.16);
 }
 
 .hero-panel {
@@ -565,64 +558,25 @@ button {
   align-items: stretch;
 }
 
-.hero-opportunity-rail {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
-  gap: 20px;
-  margin-top: 32px;
-  padding-top: 32px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+.hero-example-card__note {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-.hero-opportunity-rail__copy h3 {
-  margin: 10px 0 0;
-  font-size: 24px;
-  line-height: 1.22;
-  letter-spacing: -0.03em;
-}
-
-.hero-opportunity-rail__list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.hero-opportunity-card {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 18px 20px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.05);
-  transition: all 200ms ease;
-}
-
-.hero-opportunity-card span {
-  display: block;
-  font-size: 15px;
-  font-weight: 600;
+.hero-example-card__cta {
+  width: fit-content;
+  min-height: 42px;
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
   color: white;
-}
-
-.hero-opportunity-card p {
-  margin: 6px 0 0;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.hero-opportunity-card strong {
-  font-size: 24px;
-  letter-spacing: -0.02em;
-  color: #8ab4f8;
 }
 
 .search-form {
   width: 100%;
   display: grid;
-  gap: 20px;
+  gap: 22px;
   padding: 28px;
   border-radius: 20px;
   background: var(--surface);
@@ -640,7 +594,7 @@ button {
 
 .search-form__heading {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .search-form__description {
@@ -732,27 +686,27 @@ button {
   align-items: flex-end;
 }
 
+.search-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
 .search-form__footer--plain {
   padding-top: 2px;
 }
 
 .search-form__footer p {
   margin: 0;
-  max-width: 420px;
+  max-width: 340px;
   color: var(--muted);
   font-size: 13px;
-  line-height: 1.65;
+  line-height: 1.6;
 }
 
 .content-section {
   padding: 28px;
-}
-
-.content-section--compact {
-  padding: 0;
-  background: transparent;
-  border: 0;
-  box-shadow: none;
 }
 
 .section-heading {
@@ -771,7 +725,6 @@ button {
 
 .scene-grid,
 .deal-grid,
-.summary-stats,
 .calendar-strip__grid,
 .filter-bar__groups,
 .flight-list,
@@ -781,17 +734,16 @@ button {
 }
 
 .scene-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .deal-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .scene-card,
 .deal-card,
 .flight-card,
-.disclaimer-card,
 .empty-state,
 .drawer-card {
   position: relative;
@@ -819,8 +771,8 @@ button {
 .scene-card {
   display: grid;
   align-content: space-between;
-  gap: 18px;
-  min-height: 260px;
+  gap: 16px;
+  min-height: 220px;
 }
 
 .scene-card::before {
@@ -868,24 +820,22 @@ button {
 }
 
 .scene-card__content,
-.deal-card__copy,
-.deal-card__footer {
+.deal-card__copy {
   display: grid;
-  gap: 14px;
+  gap: 12px;
 }
 
 .scene-card__header {
   display: grid;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: 6px;
 }
 
 .scene-card h3,
 .deal-card h3 {
   margin: 0;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
   letter-spacing: -0.02em;
   color: var(--text);
 }
@@ -901,15 +851,16 @@ button {
 .scene-card__routes-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .route-pill {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
-  border-radius: 10px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 8px 12px;
+  border-radius: 999px;
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(8px);
@@ -921,44 +872,57 @@ button {
   color: var(--text);
 }
 
-.route-pill__code {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--muted);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
 .scene-card__action {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  width: fit-content;
+  min-height: 32px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(26, 115, 232, 0.08);
+  border: 1px solid rgba(26, 115, 232, 0.12);
   color: var(--accent-strong);
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 800;
   letter-spacing: 0.02em;
 }
 
-.scene-card__action::after {
+.scene-card__action::after,
+.deal-card__cta::after {
   content: "→";
   transition: transform 160ms ease;
 }
 
-.scene-card:hover .scene-card__action::after {
+.scene-card:hover .scene-card__action::after,
+.deal-card:hover .deal-card__cta::after {
   transform: translateX(4px);
 }
 
 .deal-card__cta {
-  color: var(--text);
-  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  min-height: 32px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(26, 115, 232, 0.08);
+  border: 1px solid rgba(26, 115, 232, 0.12);
+  color: var(--accent-strong);
+  font-size: 13px;
   font-weight: 800;
 }
 
 .deal-card {
   display: grid;
-  gap: 16px;
-  min-height: 240px;
+  gap: 14px;
+  min-height: 220px;
   background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
+}
+
+.deal-card__topline {
+  align-items: center;
 }
 
 .deal-card__price {
@@ -978,7 +942,7 @@ button {
 
 .deal-card__price strong {
   color: var(--accent-strong);
-  font-size: 36px;
+  font-size: 34px;
   line-height: 1;
   letter-spacing: -0.05em;
 }
@@ -991,162 +955,268 @@ button {
 
 .deal-card__cta {
   margin-top: auto;
-}
-
-.disclaimer-card {
-  display: grid;
-  gap: 16px;
-  padding: 24px 26px;
-  border: 0;
-  background: linear-gradient(135deg, #111b24 0%, #223444 100%);
-  color: white;
-  box-shadow: var(--shadow-lg);
-}
-
-.disclaimer-card h3 {
-  font-size: 32px;
-}
-
-.disclaimer-card p {
-  max-width: 780px;
-  margin: 0;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--accent-strong);
 }
 
 .results-layout {
-  gap: 18px;
-}
-
-.results-decision-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: 18px;
+  gap: 20px;
 }
 
 .summary-card,
-.sort-switch,
 .calendar-strip,
 .results-panel {
   padding: 22px;
 }
 
 .summary-card {
+  display: grid;
+  gap: 20px;
   background: linear-gradient(180deg, #ffffff 0%, #f9fbfc 100%);
 }
 
-.summary-card__main {
-  display: grid;
-  gap: 18px;
-  flex: 1;
+.summary-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .summary-card h1 {
-  font-size: clamp(32px, 4vw, 54px);
-  line-height: 1.04;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.06;
 }
 
 .summary-card p {
-  margin: 10px 0 0;
+  margin: 0;
 }
 
-.summary-stats {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.summary-stat {
+.summary-fact-grid {
   display: grid;
-  gap: 4px;
-  padding: 16px 18px;
-  border-radius: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.summary-fact {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border-radius: 18px;
   background: var(--surface);
   border: 1px solid var(--line);
 }
 
-.summary-stat strong {
-  display: block;
-  font-size: 24px;
-  line-height: 1.24;
-  letter-spacing: -0.03em;
-}
-
-.summary-stat span {
+.summary-fact span {
   color: var(--muted);
   font-size: 12px;
-  line-height: 1.55;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-.summary-stat--wide strong {
-  font-size: 16px;
-  line-height: 1.65;
-  letter-spacing: 0;
+.summary-fact strong {
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
 }
 
 .summary-card__actions {
   display: grid;
   justify-items: end;
-  gap: 12px;
+  gap: 10px;
   align-content: start;
   min-width: 220px;
 }
 
 .summary-card__hint {
-  max-width: 220px;
+  max-width: 240px;
   color: var(--muted);
   font-size: 13px;
   line-height: 1.6;
   text-align: right;
 }
 
+.decision-summary {
+  display: grid;
+  gap: 16px;
+}
+
+.decision-summary__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.decision-summary__header p {
+  max-width: 520px;
+  color: var(--muted-strong);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.decision-summary__controls {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+}
+
+.decision-summary__result-meta {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.decision-summary__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.decision-summary-card {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+
+.decision-summary-card--cheapest {
+  border-color: rgba(26, 115, 232, 0.18);
+}
+
+.decision-summary-card--best_value {
+  border-color: rgba(31, 122, 92, 0.16);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fcfa 100%);
+}
+
+.decision-summary-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.decision-summary-card__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--neutral-soft);
+  color: var(--muted-strong);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.decision-summary-card h2 {
+  margin: 10px 0 0;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.decision-summary-card__price {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+  text-align: right;
+}
+
+.decision-summary-card__price strong {
+  color: var(--accent-strong);
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.decision-summary-card__price small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.decision-summary-card__judgement {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.65;
+}
+
+.decision-summary-card__footer {
+  display: flex;
+  align-items: center;
+}
+
+.summary-advice {
+  display: grid;
+  gap: 10px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #f6faf7 0%, #fdfefe 100%);
+  border: 1px solid rgba(31, 122, 92, 0.12);
+}
+
+.summary-advice p {
+  color: var(--muted-strong);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
 .inline-search-panel {
   padding: 18px;
 }
 
-.sort-switch,
 .calendar-strip,
 .results-panel {
   background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
 }
 
 .sort-switch {
-  display: grid;
-  gap: 16px;
+  display: inline-flex;
+  background: transparent;
 }
 
 .sort-switch__buttons {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(0, 120px));
   gap: 10px;
 }
 
 .sort-option {
   display: grid;
-  gap: 8px;
-  padding: 18px;
-  border-radius: 20px;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 14px;
   border: 1px solid var(--line);
   background: var(--surface-alt);
   text-align: left;
 }
 
 .sort-option strong {
-  font-size: 18px;
+  font-size: 15px;
   line-height: 1.25;
 }
 
 .sort-option span {
   color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 .sort-option.is-active {
   background: var(--accent-soft);
   border-color: rgba(15, 118, 110, 0.18);
+  box-shadow: 0 8px 20px rgba(26, 115, 232, 0.08);
 }
 
 .calendar-strip {
   display: grid;
   gap: 16px;
+}
+
+.calendar-strip__header {
+  align-items: flex-end;
 }
 
 .calendar-strip__grid {
@@ -1155,7 +1225,7 @@ button {
 
 .calendar-tile {
   display: grid;
-  gap: 6px;
+  gap: 8px;
   padding: 14px;
   border-radius: 18px;
   border: 1px solid var(--line);
@@ -1175,6 +1245,10 @@ button {
   color: var(--text);
 }
 
+.calendar-tile small {
+  font-weight: 700;
+}
+
 .calendar-tile--low {
   background: rgba(15, 118, 110, 0.08);
 }
@@ -1190,7 +1264,18 @@ button {
 .calendar-tile.is-active {
   background: rgba(15, 118, 110, 0.12);
   border-color: rgba(15, 118, 110, 0.24);
+  box-shadow: 0 12px 28px rgba(26, 115, 232, 0.08);
   transform: translateY(-2px);
+}
+
+.calendar-tile.is-cheapest {
+  border-color: rgba(31, 122, 92, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(31, 122, 92, 0.12);
+}
+
+.calendar-tile.is-active.is-cheapest {
+  background: linear-gradient(180deg, rgba(31, 122, 92, 0.12) 0%, rgba(26, 115, 232, 0.08) 100%);
+  border-color: rgba(31, 122, 92, 0.28);
 }
 
 .results-panel {
@@ -1202,13 +1287,13 @@ button {
   display: grid;
   gap: 16px;
   padding: 18px;
-  border-radius: 22px;
+  border-radius: 20px;
   background: var(--surface-alt);
   border: 1px solid var(--line);
 }
 
 .filter-bar__title p {
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   font-size: 14px;
 }
 
@@ -1280,9 +1365,7 @@ button {
 }
 
 .flight-card__airline span,
-.flight-card__meta-row p,
-.flight-card__price span,
-.flight-card__price small {
+.flight-card__meta-row p {
   color: var(--muted);
   font-size: 13px;
 }
@@ -1352,7 +1435,7 @@ button {
 
 .flight-card__facts {
   display: grid;
-  gap: 12px;
+  gap: 14px;
   align-content: start;
 }
 
@@ -1389,12 +1472,40 @@ button {
 
 .flight-card__detail-row {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted-strong);
+  font-size: 13px;
   font-weight: 700;
+}
+
+.flight-stop-summary {
+  color: var(--muted);
+  font-size: 12px;
 }
 
 .flight-card__summary {
   margin: 0;
   font-size: 14px;
+}
+
+.flight-card__quick-take {
+  margin: 0;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.65;
+}
+
+.flight-card__fit-box,
+.flight-card__risk-box {
+  display: grid;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: var(--surface-alt);
+  border: 1px solid var(--line);
 }
 
 .flight-card__decision {
@@ -1405,28 +1516,16 @@ button {
   height: 100%;
 }
 
-.flight-card__price {
-  display: grid;
-  gap: 4px;
-  text-align: right;
-}
-
-.flight-card__price strong {
+.flight-card__gap-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
   color: var(--accent-strong);
-  font-size: 36px;
-  line-height: 1;
-  letter-spacing: -0.05em;
-}
-
-.flight-card__review {
-  padding-top: 16px;
-  border-top: 1px dashed var(--line);
-}
-
-.flight-card__review p {
-  margin: 0;
-  flex: 1;
-  color: var(--muted-strong);
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .empty-state {
@@ -1507,7 +1606,6 @@ button {
 }
 
 .drawer-hero__decision h3,
-.drawer-risk-strip h3,
 .drawer-card h3 {
   margin: 0;
   letter-spacing: -0.03em;
@@ -1542,38 +1640,6 @@ button {
 .drawer-hero__price span,
 .drawer-hero__price small {
   color: var(--muted);
-}
-
-.drawer-risk-strip {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 16px;
-  padding: 18px 20px;
-  border-radius: 24px;
-  background: linear-gradient(135deg, #12202a 0%, #223342 100%);
-  color: white;
-}
-
-.drawer-risk-strip h3 {
-  font-size: 22px;
-}
-
-.drawer-risk-strip p {
-  max-width: 360px;
-  margin: 8px 0 0;
-  color: rgba(255, 255, 255, 0.82);
-  line-height: 1.7;
-}
-
-.drawer-risk-strip .status-badge--accent,
-.drawer-risk-strip .status-badge--positive,
-.drawer-risk-strip .status-badge--neutral,
-.drawer-risk-strip .status-badge--warning,
-.drawer-risk-strip .status-badge--risk {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.92);
 }
 
 .drawer__body {
@@ -1623,6 +1689,15 @@ button {
   border-bottom: 0;
 }
 
+.detail-list--stacked li {
+  justify-content: flex-start;
+}
+
+.detail-list--stacked strong {
+  max-width: none;
+  text-align: left;
+}
+
 .detail-list span {
   color: var(--muted);
   font-size: 13px;
@@ -1637,16 +1712,10 @@ button {
 
 @media (max-width: 1100px) {
   .hero-grid,
-  .results-decision-grid,
   .flight-card__grid {
     grid-template-columns: 1fr;
   }
 
-  .hero-opportunity-rail {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-opportunity-rail__list,
   .scene-grid,
   .deal-grid,
   .filter-bar__groups {
@@ -1661,10 +1730,6 @@ button {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .summary-card {
-    flex-direction: column;
-  }
-
   .summary-card__actions {
     justify-items: start;
   }
@@ -1674,12 +1739,22 @@ button {
     text-align: left;
   }
 
-  .flight-card__decision {
+  .summary-fact-grid,
+  .decision-summary__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .decision-summary__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .decision-summary__controls {
     justify-items: start;
   }
 
-  .flight-card__price {
-    text-align: left;
+  .flight-card__decision {
+    justify-items: start;
   }
 
   .drawer__body {
@@ -1708,11 +1783,11 @@ button {
   .section-heading,
   .search-form__header,
   .search-form__footer,
-  .summary-card,
+  .summary-card__top,
   .calendar-strip__header,
   .filter-bar__header,
-  .flight-card__review,
-  .deal-card__header {
+  .deal-card__header,
+  .deal-card__topline {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -1721,21 +1796,39 @@ button {
     font-size: 40px;
   }
 
-  .hero-insight-card__header p {
-    max-width: none;
+  .hero-copy p {
+    font-size: 16px;
   }
 
-  .hero-insight-grid,
-  .hero-opportunity-rail__list,
+  .hero-example-card,
+  .hero-example-card__grid,
   .scene-grid,
   .deal-grid,
-  .summary-stats,
+  .summary-fact-grid,
+  .decision-summary__grid,
   .filter-bar__groups,
   .sort-switch__buttons,
   .calendar-strip__grid,
   .search-grid,
   .search-form--compact .search-grid {
     grid-template-columns: 1fr;
+  }
+
+  .search-form__actions {
+    justify-content: flex-start;
+  }
+
+  .decision-summary__controls {
+    width: 100%;
+    justify-items: stretch;
+  }
+
+  .sort-switch {
+    width: 100%;
+  }
+
+  .sort-switch__buttons {
+    width: 100%;
   }
 
   .field--passengers,
@@ -1783,10 +1876,6 @@ button {
     border-left: 0;
     border-top: 1px solid var(--line);
     text-align: left;
-  }
-
-  .drawer-risk-strip {
-    flex-direction: column;
   }
 
   .detail-list li {

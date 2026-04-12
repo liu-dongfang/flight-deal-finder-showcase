@@ -4,14 +4,13 @@ import { useEffect } from "react";
 import type { FlightResult } from "@/lib/types";
 import { formatDuration, formatPrice } from "@/lib/utils/date";
 import {
-  getBaggageBadge,
-  getFareHint,
+  getDecisionBadgeTone,
+  getFlightBenefits,
   getFlightDecisionHeadline,
-  getFlightLabelTone,
-  getFlightRiskSummary,
-  getFlexibilityBadge,
-  getFlexibilityHint,
-  getTransferHint
+  getFlightQuickTake,
+  getFlightSuitableAudience,
+  getFlightTradeoffs,
+  getFlightUnsuitableAudience
 } from "@/lib/utils/presentation";
 
 export function FlightDetailsDrawer({
@@ -45,16 +44,19 @@ export function FlightDetailsDrawer({
   }
 
   const decisionHeadline = getFlightDecisionHeadline(flight);
-  const riskSummary = getFlightRiskSummary(flight);
-  const baggageBadge = getBaggageBadge(flight.checkedBaggage);
-  const flexibilityBadge = getFlexibilityBadge(flight.changePolicyLevel);
+  const benefits = getFlightBenefits(flight);
+  const tradeoffs = getFlightTradeoffs(flight);
+  const visibleBenefits =
+    benefits.length > 0 ? benefits : ["这张票的主要优势仍在总价本身，其他权益比较中性。"];
+  const visibleTradeoffs =
+    tradeoffs.length > 0 ? tradeoffs : ["主要代价相对少，重点比较价格和起飞时段。"];
 
   return (
     <div className="drawer-overlay" role="presentation" onClick={onClose}>
       <aside className="drawer" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
         <div className="drawer__header">
           <div>
-            <span className="section-label">航班明细</span>
+            <span className="section-label">看清代价</span>
             <h2>
               {flight.route.originCity} → {flight.route.destinationCity}
             </h2>
@@ -69,41 +71,57 @@ export function FlightDetailsDrawer({
 
         <section className="drawer-hero">
           <div className="drawer-hero__decision">
-            <span className="status-badge status-badge--accent">智能分析建议</span>
-            <h3>{decisionHeadline}</h3>
-            <p>{flight.aiReview.short}</p>
+            <span className={`status-badge status-badge--${getDecisionBadgeTone(flight)}`}>{decisionHeadline}</span>
+            <h3>{getFlightQuickTake(flight)}</h3>
+            <p>{flight.aiReview.detail}</p>
           </div>
 
           <div className="drawer-hero__price">
             <strong>{formatPrice(flight.totalPrice)}</strong>
             <span>含税总价</span>
-            <small>{flight.stopSummary}</small>
-          </div>
-        </section>
-
-        <section className="drawer-risk-strip">
-          <div>
-            <h3>主要代价</h3>
-            <p>{riskSummary}</p>
-          </div>
-          <div className="status-row">
-            <span className={`status-badge status-badge--${baggageBadge.tone}`}>{baggageBadge.label}</span>
-            <span className={`status-badge status-badge--${flexibilityBadge.tone}`}>{flexibilityBadge.label}</span>
-            {flight.labels.length > 0 ? (
-              flight.labels.map((label) => (
-                <span key={label} className={`status-badge status-badge--${getFlightLabelTone(label)}`}>
-                  {label}
-                </span>
-              ))
-            ) : (
-              <span className="status-badge status-badge--positive">规则友好</span>
-            )}
+            <small>{flight.priceGapFromCheapest === 0 ? "当前最低价" : `比最低价高 ${formatPrice(flight.priceGapFromCheapest)}`}</small>
           </div>
         </section>
 
         <div className="drawer__body">
-          <section className="drawer-card drawer-card--overview">
-            <h3>航班概览</h3>
+          <section className="drawer-card">
+            <h3>你得到什么</h3>
+            <ul className="detail-list detail-list--stacked">
+              {visibleBenefits.map((item) => (
+                <li key={item}>
+                  <strong>{item}</strong>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="drawer-card">
+            <h3>你付出的代价</h3>
+            <ul className="detail-list detail-list--stacked">
+              {visibleTradeoffs.map((item) => (
+                <li key={item}>
+                  <strong>{item}</strong>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="drawer-card">
+            <h3>适合谁 / 不适合谁</h3>
+            <ul className="detail-list">
+              <li>
+                <span>适合谁</span>
+                <strong>{getFlightSuitableAudience(flight)}</strong>
+              </li>
+              <li>
+                <span>不适合谁</span>
+                <strong>{getFlightUnsuitableAudience(flight)}</strong>
+              </li>
+            </ul>
+          </section>
+
+          <section className="drawer-card">
+            <h3>规则明细</h3>
             <ul className="detail-list">
               <li>
                 <span>起降时间</span>
@@ -119,89 +137,32 @@ export function FlightDetailsDrawer({
                 <span>中转情况</span>
                 <strong>{flight.stopSummary}</strong>
               </li>
-            </ul>
-            <p className="drawer-card__hint">
-              {flight.stopCount === 0
-                ? "直飞航班，时间和精力成本最优。"
-                : "转机将增加整体出行时间，请注意核实行李能否直挂。"}
-            </p>
-          </section>
-
-          <section className="drawer-card drawer-card--fare">
-            <h3>票价构成</h3>
-            <ul className="detail-list">
               <li>
-                <span>裸票价</span>
-                <strong>{formatPrice(flight.baseFare)}</strong>
+                <span>票价构成</span>
+                <strong>
+                  裸票 {formatPrice(flight.baseFare)} + 税费 {formatPrice(flight.taxFee)}
+                </strong>
               </li>
               <li>
-                <span>税费</span>
-                <strong>{formatPrice(flight.taxFee)}</strong>
+                <span>行李规则</span>
+                <strong>
+                  随身 {flight.carryOnBaggage} · 托运 {flight.checkedBaggage}
+                </strong>
               </li>
               <li>
-                <span>行李附加费用提示</span>
-                <strong>{flight.checkedBaggageFeeHint}</strong>
-              </li>
-            </ul>
-            <p className="drawer-card__hint">{getFareHint(flight)}</p>
-          </section>
-
-          <section className="drawer-card drawer-card--baggage">
-            <h3>行李规则</h3>
-            <ul className="detail-list">
-              <li>
-                <span>随身行李</span>
-                <strong>{flight.carryOnBaggage}</strong>
-              </li>
-              <li>
-                <span>托运行李</span>
-                <strong>{flight.checkedBaggage}</strong>
-              </li>
-            </ul>
-            <p className="drawer-card__hint">
-              {flight.checkedBaggage === "0kg"
-                ? "请注意：当前票价不含免费托运行李额度，可能产生额外开销。"
-                : "该票价已包含托运行李额，无需额外支付此项费用。"}
-            </p>
-          </section>
-
-          <section className="drawer-card drawer-card--flex">
-            <h3>退改签说明</h3>
-            <ul className="detail-list">
-              <li>
-                <span>灵活度等级</span>
-                <strong>{flexibilityBadge.label}</strong>
-              </li>
-              <li>
-                <span>规则说明</span>
+                <span>退改说明</span>
                 <strong>{flight.refundPolicySummary}</strong>
               </li>
+              {flight.stopCount > 0 ? (
+                <li>
+                  <span>中转提醒</span>
+                  <strong>
+                    {flight.isSelfTransfer ? "自助中转" : "非自助中转"} ·{" "}
+                    {flight.isCrossTerminal ? "涉及跨航站楼" : "无需跨航站楼"} · 衔接 {flight.transferMinutes} 分钟
+                  </strong>
+                </li>
+              ) : null}
             </ul>
-            <p className="drawer-card__hint">{getFlexibilityHint(flight)}</p>
-          </section>
-
-          <section className="drawer-card drawer-card--transfer">
-            <h3>中转说明</h3>
-            <ul className="detail-list">
-              <li>
-                <span>是否自助中转</span>
-                <strong>{flight.isSelfTransfer ? "是" : "否"}</strong>
-              </li>
-              <li>
-                <span>是否跨航站楼</span>
-                <strong>{flight.isCrossTerminal ? "是" : "否"}</strong>
-              </li>
-              <li>
-                <span>衔接时长</span>
-                <strong>{flight.stopCount === 0 ? "无需中转" : `${flight.transferMinutes} 分钟`}</strong>
-              </li>
-            </ul>
-            <p className="drawer-card__hint">{getTransferHint(flight)}</p>
-          </section>
-
-          <section className="drawer-card drawer-card--ai">
-            <h3>AI 综合建议</h3>
-            <p>{flight.aiReview.detail}</p>
           </section>
         </div>
       </aside>

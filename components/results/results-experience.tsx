@@ -9,7 +9,6 @@ import { FilterBar } from "@/components/results/filter-bar";
 import { FlightCard } from "@/components/results/flight-card";
 import { FlightDetailsDrawer } from "@/components/results/flight-details-drawer";
 import { SearchSummaryBar } from "@/components/results/search-summary-bar";
-import { SortSwitch } from "@/components/results/sort-switch";
 import { PRODUCT_NAME } from "@/lib/constants";
 import { featuredDeals } from "@/lib/data/featuredDeals";
 import type { FlightResult, SearchQuery, SortMode } from "@/lib/types";
@@ -65,9 +64,11 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
     commitQuery({ sort });
   }
 
+  const comparisonFlights =
+    experience.flights.length > 0 ? experience.flights : experience.flightsBeforeFilters;
   const lowestPrice =
-    experience.flights.length > 0
-      ? Math.min(...experience.flights.map((flight) => flight.totalPrice))
+    comparisonFlights.length > 0
+      ? Math.min(...comparisonFlights.map((flight) => flight.totalPrice))
       : 0;
 
   return (
@@ -77,10 +78,10 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
           <span className="brand-mark__dot" />
           <span>
             <strong>{PRODUCT_NAME}</strong>
-              <small>特价机票发现平台</small>
-            </span>
-          </Link>
-        <div className="results-topbar__meta">这条典型航线已精调，包含全部税金与附加费用的真实比价</div>
+            <small>特价机票发现平台</small>
+          </span>
+        </Link>
+        <div className="results-topbar__meta">先看结论，再看完整列表</div>
       </header>
 
       <div className="results-layout">
@@ -92,6 +93,11 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
           lowestPrice={lowestPrice}
           searchOpen={searchOpen}
           onToggleSearch={() => setSearchOpen((current) => !current)}
+          comparisonFlights={comparisonFlights}
+          calendarItems={experience.calendarItems}
+          sort={experience.query.sort}
+          onChangeSort={updateSort}
+          priceUpdatedAt="11:20"
         />
 
         {searchOpen ? (
@@ -108,14 +114,11 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
 
         {experience.route ? (
           <>
-            <section className="results-decision-grid">
-              <SortSwitch sort={experience.query.sort} onChange={updateSort} />
-              <CalendarStrip
-                items={experience.calendarItems}
-                selectedDate={experience.selectedCalendarDate}
-                onSelect={(date) => commitQuery({ departDate: date })}
-              />
-            </section>
+            <CalendarStrip
+              items={experience.calendarItems}
+              selectedDate={experience.selectedCalendarDate}
+              onSelect={(date) => commitQuery({ departDate: date })}
+            />
 
             <section className="results-panel">
               <FilterBar query={experience.query} onChange={commitQuery} />
@@ -127,7 +130,6 @@ export function ResultsExperience({ initialQuery }: { initialQuery: SearchQuery 
                       key={flight.flightId}
                       flight={flight}
                       rank={index + 1}
-                      sort={experience.query.sort}
                       onOpen={() => setSelectedFlightId(flight.flightId)}
                     />
                   ))}

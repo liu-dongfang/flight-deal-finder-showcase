@@ -83,7 +83,8 @@ function isHighRiskFlight(flight: FlightResult): boolean {
     flight.isSelfTransfer ||
     flight.isCrossTerminal ||
     (flight.stopCount > 0 && flight.transferMinutes < 90) ||
-    (flight.isRedEye && flight.checkedBaggage === "0kg")
+    (flight.isRedEye && flight.checkedBaggage === "0kg") ||
+    flight.changePolicyLevel === "strict"
   );
 }
 
@@ -149,8 +150,7 @@ function getBestValueScore(flight: FlightResult): number {
 
 function getLabels(
   flight: FlightResult,
-  flights: FlightResult[],
-  sort: SearchQuery["sort"]
+  flights: FlightResult[]
 ): string[] {
   const labels: string[] = [];
   const cheapest = [...flights].sort(getCheapestTieBreaker)[0];
@@ -165,29 +165,13 @@ function getLabels(
   })[0];
 
   if (cheapest && cheapest.flightId === flight.flightId) {
-    labels.push("最低价");
+    labels.push("最便宜");
   }
   if (bestValue && bestValue.flightId === flight.flightId) {
-    labels.push("性价比优选");
-  }
-  if (flight.changePolicyLevel !== "strict" && flight.checkedBaggage !== "0kg") {
-    labels.push("规则友好");
-  }
-  if (flight.checkedBaggage === "0kg") {
-    labels.push("托运缺失");
-  }
-  if (flight.isRedEye) {
-    labels.push("红眼慎选");
-  }
-  if (
-    flight.isSelfTransfer ||
-    flight.isCrossTerminal ||
-    (flight.stopCount > 0 && flight.transferMinutes < 90)
-  ) {
-    labels.push("中转风险");
+    labels.push("更划算");
   }
 
-  return labels.filter((label, index) => labels.indexOf(label) === index).slice(0, sort === "best_value" ? 3 : 2);
+  return labels.filter((label, index) => labels.indexOf(label) === index).slice(0, 2);
 }
 
 function getRouteByCities(from: string, to: string): RouteRecord | null {
@@ -285,7 +269,7 @@ export function getResultsExperience(query: SearchQuery): ResultsExperience {
 
   filteredFlights.forEach((flight) => {
     flight.aiReview = generateAiReview(flight);
-    flight.labels = getLabels(flight, filteredFlights, query.sort);
+    flight.labels = getLabels(flight, filteredFlights);
   });
 
   const flights =

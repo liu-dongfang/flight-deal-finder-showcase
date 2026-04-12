@@ -19,13 +19,12 @@ export function SceneEntryGrid({ scenes }: { scenes: SceneRecord[] }) {
             </div>
 
             <div className="scene-card__routes-list">
-              {scene.routeIds.map((routeId) => {
+              {scene.routeIds.slice(0, 2).map((routeId) => {
                 const r = routes.find((rt) => rt.routeId === routeId);
                 if (!r) return null;
                 return (
                   <div key={routeId} className="route-pill">
-                    <span className="route-pill__name">{r.originCity} 飞 {r.destinationCity}</span>
-                    <span className="route-pill__code">{r.originAirportCode}-{r.destinationAirportCode}</span>
+                    <span className="route-pill__name">{r.originCity} → {r.destinationCity}</span>
                   </div>
                 );
               })}
@@ -33,7 +32,7 @@ export function SceneEntryGrid({ scenes }: { scenes: SceneRecord[] }) {
           </div>
 
           <div className="scene-card__footer">
-            <span className="scene-card__action">开始探索</span>
+            <span className="scene-card__action">进入场景</span>
           </div>
         </Link>
       ))}
