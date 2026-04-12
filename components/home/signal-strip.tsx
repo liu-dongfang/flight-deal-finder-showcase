@@ -41,35 +41,28 @@ export function SignalStrip() {
     return () => clearInterval(timer);
   }, [reducedMotion, paused]);
 
-  /* prefers-reduced-motion: 三条并列静态展示 */
-  if (reducedMotion) {
-    return (
-      <div className="signal-strip signal-strip--static">
-        {SIGNALS.map((s, i) => (
-          <div key={i} className={`signal-item signal-item--${s.color}`}>
-            <span className="signal-item__badge">{s.badge}</span>
-            <span className="signal-item__text">{s.text}</span>
-          </div>
-        ))}
-      </div>
-    );
-  }
+  /* prefers-reduced-motion：所有条目静态展示，grid-column/row auto 堆列 */
+  const isStatic = reducedMotion;
 
   return (
     <div
-      className="signal-strip"
+      className={`signal-strip${isStatic ? " signal-strip--static" : ""}`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <span className="signal-live-dot" aria-hidden="true" />
+      {/* 左：状态标签区 */}
+      <div className="signal-strip__status">
+        <span className="signal-live-dot" aria-hidden="true" />
+        <span className="signal-strip__status-label">实时信号</span>
+      </div>
 
-      {/* 旋转区域：CSS Grid 叠层，只有 is-active 项可见 */}
+      {/* 中：旋转 insight — CSS Grid 叠层（所有 item 占 grid-column:1/grid-row:1） */}
       <div className="signal-stage" aria-live="polite" aria-atomic="true">
         {SIGNALS.map((s, i) => (
           <div
             key={i}
-            className={`signal-item signal-item--${s.color}${i === activeIdx ? " is-active" : ""}`}
-            aria-hidden={i !== activeIdx}
+            className={`signal-item signal-item--${s.color}${!isStatic && i === activeIdx ? " is-active" : ""}`}
+            aria-hidden={!isStatic && i !== activeIdx}
           >
             <span className="signal-item__badge">{s.badge}</span>
             <span className="signal-item__text">{s.text}</span>
@@ -77,18 +70,10 @@ export function SignalStrip() {
         ))}
       </div>
 
-      {/* 进度指示点 */}
-      <div className="signal-dots" aria-hidden="true">
-        {SIGNALS.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            className={`signal-dot${i === activeIdx ? " is-active" : ""}`}
-            onClick={() => setActiveIdx(i)}
-            tabIndex={-1}
-          />
-        ))}
-      </div>
+      {/* 右：行动入口 */}
+      <a href="#daily-best" className="signal-strip__cta">
+        查看今日机会 →
+      </a>
     </div>
   );
 }

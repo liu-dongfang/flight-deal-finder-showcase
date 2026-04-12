@@ -30,7 +30,6 @@ export function StickyDecisionBar({
       ? lowestPrice - bestCalendarItem.lowestTotalPrice
       : 0;
 
-  /* 只有 bestValueFlight 与最低价不同时才展示"更划算"段 */
   const showBestValue =
     bestValueFlight != null && bestValueFlight.totalPrice !== lowestPrice;
 
@@ -41,6 +40,11 @@ export function StickyDecisionBar({
       aria-label="当前决策摘要"
     >
       <div className="decision-bar__inner">
+
+        {/* 头部标签 */}
+        <span className="decision-bar__heading">决策摘要</span>
+        <div className="decision-bar__vsep" aria-hidden="true" />
+
         {/* 最低价 */}
         <div className="decision-bar__group">
           <span className="decision-bar__label">最低价</span>
@@ -62,7 +66,7 @@ export function StickyDecisionBar({
           </>
         )}
 
-        {/* 改期节省 */}
+        {/* 改期可省 */}
         {savings > 0 && bestCalendarItem && (
           <>
             <div className="decision-bar__sep" aria-hidden="true" />
@@ -75,6 +79,9 @@ export function StickyDecisionBar({
           </>
         )}
 
+        <div className="decision-bar__vsep" aria-hidden="true" />
+
+        {/* 返回顶部 */}
         <button
           type="button"
           className="decision-bar__top-btn"

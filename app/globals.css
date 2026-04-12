@@ -136,7 +136,12 @@ button { border: 0; }
   padding: 22px 0 64px;
 }
 
-.page-home { display: grid; gap: 24px; }
+.page-home {
+  display: grid;
+  gap: 24px;
+  /* 为固定常驻顶栏留出空间 */
+  padding-top: 64px;
+}
 .results-layout { display: grid; gap: 16px; }
 
 /* Light card base */
@@ -624,7 +629,8 @@ button { border: 0; }
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(460px, 520px);
   gap: 44px;
-  margin-top: 38px;
+  /* 内部 topbar 已移至常驻顶栏，margin 减小 */
+  margin-top: 16px;
   align-items: center;
 }
 
@@ -2809,84 +2815,76 @@ button { border: 0; }
 }
 
 /* ================================================================
-   STICKY NAV — 首页滚动后出现的极简导航条
+   NAV BAR — 首页常驻产品顶栏（固定，始终可见）
    ================================================================ */
 
-.sticky-nav {
+.nav-bar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 40;
+  z-index: 45;
+  height: 60px;
   display: flex;
   align-items: center;
   gap: 4px;
-  /* 与页面内容区宽度对齐 */
-  padding: 0 max(24px, calc((100vw - 1180px) / 2));
-  height: 52px;
-  background: rgba(255, 255, 255, 0.86);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  padding: 0 max(24px, calc((100vw - 1440px) / 2 + 32px));
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--line-medium);
-  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.05), 0 4px 16px rgba(0, 0, 0, 0.04);
-  /* 默认隐藏，滚动后滑入 */
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-100%);
-  transition:
-    opacity 240ms ease,
-    transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow:
+    0 1px 0 rgba(15, 23, 42, 0.04),
+    0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
-.sticky-nav--visible {
-  opacity: 1;
-  pointer-events: all;
-  transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sticky-nav {
-    transition: opacity 200ms ease;
-    transform: none !important;
-  }
-}
-
-.sticky-nav__brand {
+.nav-bar__brand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   text-decoration: none;
   color: var(--text-primary);
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-right: 20px;
+  margin-right: 24px;
   flex-shrink: 0;
 }
 
-.sticky-nav__dot {
+.nav-bar__logo-dot {
   display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
   background: var(--brand);
   flex-shrink: 0;
 }
 
-.sticky-nav__links {
+.nav-bar__brand-text strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.nav-bar__brand-text small {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1;
+  margin-top: 1px;
+}
+
+.nav-bar__nav {
   display: flex;
   align-items: center;
   gap: 2px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
   flex: 1;
 }
 
-.sticky-nav__link {
+.nav-bar__link {
   display: inline-flex;
   align-items: center;
-  padding: 6px 14px;
+  padding: 7px 14px;
   border-radius: var(--r-md);
   font-size: 14px;
   font-weight: 600;
@@ -2895,65 +2893,112 @@ button { border: 0; }
   transition: color 140ms ease, background-color 140ms ease;
 }
 
-.sticky-nav__link:hover {
+.nav-bar__link:hover {
   color: var(--text-primary);
   background: var(--neutral-soft);
 }
 
-.sticky-nav__link.is-active {
+.nav-bar__link.is-active {
   color: var(--brand-strong);
   background: var(--brand-soft);
 }
 
-.sticky-nav__top-btn {
+.nav-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.nav-bar__rule-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 16px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--text-secondary);
   font-size: 13px;
   font-weight: 600;
-  color: var(--text-muted);
-  padding: 6px 14px;
-  border-radius: var(--r-md);
-  background: transparent;
-  border: 1px solid var(--line-medium);
-  cursor: pointer;
-  flex-shrink: 0;
+  text-decoration: none;
   transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
 }
 
-.sticky-nav__top-btn:hover {
+.nav-bar__rule-btn:hover {
   color: var(--text-primary);
   background: var(--neutral-soft);
   border-color: var(--line-strong);
 }
 
 /* ================================================================
-   SIGNAL STRIP — 实时信号条（非跑马灯）
+   HERO ANCHORS — Hero 底部 section 快捷锚点 pills
+   ================================================================ */
+
+.hero-anchors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-anchor {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: var(--r-full);
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+
+.hero-anchor:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.96);
+  border-color: rgba(255, 255, 255, 0.20);
+}
+
+/* ================================================================
+   SIGNAL STRIP — 实时信号条（产品状态层）
+   三栏结构：[实时信号标签] | [rotating insight] | [查看今日机会 →]
    ================================================================ */
 
 .signal-strip {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 16px;
+  gap: 0;
   border-radius: var(--r-lg);
   background: var(--surface);
   border: 1px solid var(--line-medium);
-  box-shadow: var(--shadow-xs);
-  min-height: 44px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  min-height: 48px;
 }
 
-/* prefers-reduced-motion 下三条并列 */
-.signal-strip--static {
-  gap: 20px;
-  flex-wrap: wrap;
+/* 左：状态标签区 */
+.signal-strip__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-right: 1px solid var(--line);
+  background: rgba(15, 23, 42, 0.025);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
-.signal-strip--static .signal-item {
-  opacity: 1;
-  pointer-events: all;
-  transform: none;
-  /* 覆盖 grid-stacking */
-  position: static;
-  grid-column: auto;
-  grid-row: auto;
+.signal-strip__status-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
 }
 
 /* 绿色 live 点 */
@@ -2963,14 +3008,16 @@ button { border: 0; }
   border-radius: 50%;
   background: #16a34a;
   flex-shrink: 0;
-  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.16);
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
 }
 
-/* 旋转舞台：CSS Grid 叠层法，所有 item 占同一格 */
+/* 中：旋转 insight — CSS Grid 叠层法 */
 .signal-stage {
   flex: 1;
   display: grid;
+  padding: 10px 18px;
   min-height: 24px;
+  align-items: center;
 }
 
 .signal-item {
@@ -2981,8 +3028,8 @@ button { border: 0; }
   gap: 8px;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(5px);
-  transition: opacity 360ms ease, transform 360ms ease;
+  transform: translateY(4px);
+  transition: opacity 340ms ease, transform 340ms ease;
 }
 
 .signal-item.is-active {
@@ -2998,7 +3045,7 @@ button { border: 0; }
 .signal-item__badge {
   display: inline-flex;
   align-items: center;
-  padding: 2px 8px;
+  padding: 2px 9px;
   border-radius: var(--r-xs);
   font-size: 11px;
   font-weight: 800;
@@ -3030,33 +3077,43 @@ button { border: 0; }
   line-height: 1.4;
 }
 
-/* 进度指示点 */
-.signal-dots {
-  display: flex;
-  gap: 4px;
+/* 右：行动入口 */
+.signal-strip__cta {
+  display: inline-flex;
   align-items: center;
+  padding: 12px 18px;
+  border-left: 1px solid var(--line);
+  background: rgba(15, 23, 42, 0.025);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand-strong);
+  text-decoration: none;
+  white-space: nowrap;
   flex-shrink: 0;
+  transition: background-color 140ms ease, color 140ms ease;
 }
 
-.signal-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: var(--r-full);
-  background: var(--line-strong);
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  transition: background 180ms ease, width 200ms ease;
+.signal-strip__cta:hover {
+  background: var(--brand-soft);
+  color: var(--brand-strong);
 }
 
-.signal-dot.is-active {
-  background: var(--brand);
-  width: 16px;
+/* static 变体（prefers-reduced-motion） */
+.signal-strip--static .signal-stage {
+  padding: 10px 18px;
+}
+
+.signal-strip--static .signal-item {
+  opacity: 1;
+  pointer-events: all;
+  transform: none;
+  grid-column: auto;
+  grid-row: auto;
 }
 
 /* ================================================================
-   STICKY DECISION BAR — 结果页粘性决策摘要条
-   以中央浮动深色胶囊呈现，不遮挡内容
+   STICKY DECISION BAR — 结果页粘性决策摘要
+   深色胶囊，顶部居中浮动，包含"决策摘要"标题提升可感知度
    ================================================================ */
 
 .decision-bar {
@@ -3070,10 +3127,10 @@ button { border: 0; }
   padding-top: 10px;
   pointer-events: none;
   opacity: 0;
-  transform: translateY(-12px);
+  transform: translateY(-14px);
   transition:
-    opacity 260ms ease,
-    transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 280ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .decision-bar--visible {
@@ -3092,19 +3149,37 @@ button { border: 0; }
 .decision-bar__inner {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 18px;
+  gap: 14px;
+  padding: 10px 20px;
   border-radius: var(--r-full);
-  background: rgba(11, 20, 38, 0.92);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(7, 14, 36, 0.94);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  /* 顶部品牌蓝高光线 + 外框阴影 */
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.24),
-    0 8px 28px rgba(0, 0, 0, 0.28),
-    0 2px 8px rgba(0, 0, 0, 0.18);
+    inset 0 1px 0 rgba(26, 108, 244, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 10px 32px rgba(0, 0, 0, 0.32),
+    0 3px 10px rgba(0, 0, 0, 0.20);
   white-space: nowrap;
   pointer-events: all;
+}
+
+/* 头部标签 */
+.decision-bar__heading {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+/* 垂直分隔线（粗） */
+.decision-bar__vsep {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
 }
 
 .decision-bar__group {
@@ -3118,17 +3193,18 @@ button { border: 0; }
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(255, 255, 255, 0.40);
 }
 
 .decision-bar__value {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(255, 255, 255, 0.90);
 }
 
 .decision-bar__value--price {
-  color: rgba(120, 210, 255, 0.96);
+  font-size: 15px;
+  color: rgba(120, 210, 255, 0.98);
 }
 
 .decision-bar__group--orange .decision-bar__value {
@@ -3138,42 +3214,34 @@ button { border: 0; }
 .decision-bar__sep {
   width: 1px;
   height: 14px;
-  background: rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.12);
   flex-shrink: 0;
 }
 
 .decision-bar__top-btn {
-  margin-left: 6px;
-  padding: 4px 12px;
+  padding: 5px 13px;
   border-radius: var(--r-sm);
-  background: rgba(255, 255, 255, 0.10);
-  color: rgba(255, 255, 255, 0.75);
+  background: rgba(26, 108, 244, 0.22);
+  color: rgba(180, 210, 255, 0.92);
   font-size: 12px;
   font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(26, 108, 244, 0.28);
   cursor: pointer;
   transition: background-color 140ms ease, color 140ms ease;
 }
 
 .decision-bar__top-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(26, 108, 244, 0.38);
   color: white;
 }
 
 /* ================================================================
    CARD REVEAL ANIMATION — 卡片轻量 reveal
-   进入视口时的轻微上移淡入，让列表有生命感
    ================================================================ */
 
 @keyframes cardReveal {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .daily-best-card,
@@ -3184,15 +3252,11 @@ button { border: 0; }
 
 .daily-best-card:nth-child(2),
 .path-card:nth-child(2),
-.rec-card:nth-child(2) {
-  animation-delay: 60ms;
-}
+.rec-card:nth-child(2) { animation-delay: 60ms; }
 
 .daily-best-card:nth-child(3),
 .path-card:nth-child(3),
-.rec-card:nth-child(3) {
-  animation-delay: 120ms;
-}
+.rec-card:nth-child(3) { animation-delay: 120ms; }
 
 .flight-card {
   animation: cardReveal 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -3207,24 +3271,31 @@ button { border: 0; }
   .daily-best-card,
   .path-card,
   .rec-card,
-  .flight-card {
-    animation: none;
-  }
+  .flight-card { animation: none; }
 }
 
 /* ================================================================
-   RESPONSIVE — sticky-nav 与 signal-strip 移动端适配
+   RESPONSIVE — nav-bar / signal-strip / decision-bar 移动端适配
    ================================================================ */
 
 @media (max-width: 820px) {
-  .sticky-nav { padding: 0 16px; height: 48px; }
-  .sticky-nav__top-btn { display: none; }
-  .sticky-nav__link { padding: 6px 10px; font-size: 13px; }
+  .nav-bar { padding: 0 16px; height: 52px; }
+  .nav-bar__brand-text small { display: none; }
+  .nav-bar__rule-btn { display: none; }
 
-  .signal-strip--static { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .page-home { padding-top: 52px; }
 
-  .decision-bar__inner { gap: 8px; padding: 7px 14px; }
+  .hero-anchors { gap: 6px; }
+  .hero-anchor { font-size: 12px; padding: 5px 12px; }
+
+  .signal-strip { flex-direction: column; align-items: stretch; }
+  .signal-strip__status { border-right: 0; border-bottom: 1px solid var(--line); }
+  .signal-strip__cta { border-left: 0; border-top: 1px solid var(--line); text-align: center; justify-content: center; }
+
+  .decision-bar__inner { gap: 10px; padding: 8px 16px; }
+  .decision-bar__heading { display: none; }
   .decision-bar__label { display: none; }
   .decision-bar__value { font-size: 12px; }
+  .decision-bar__value--price { font-size: 13px; }
   .decision-bar__top-btn { padding: 4px 10px; font-size: 11px; }
 }
