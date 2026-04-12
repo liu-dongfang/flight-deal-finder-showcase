@@ -12,7 +12,7 @@ export default function HomePage() {
 
   return (
     <main className="page page-home">
-      {/* Layer 1: 顶部主控制区（Query Composer） */}
+      {/* Hero Shell */}
       <section className="hero-shell">
         <header className="topbar">
           <Link href="/" className="brand-mark">
@@ -25,45 +25,54 @@ export default function HomePage() {
           <div className="topbar__note">本周低价已更新</div>
         </header>
 
-        <div className="query-composer">
-          <div className="query-composer__heading">
+        {/* 两栏构图：左侧品牌文案 + 右侧搜索控制台 */}
+        <div className="hero-stage">
+          <div className="hero-copy">
+            <span className="hero-kicker">发现机会 · 看清代价 · 做出决策</span>
             <h1>开始找真正值得买的机票</h1>
             <p>先看低价，再看代价，再决定现在买不买。</p>
+            <div className="hero-points">
+              <span>含税总价</span>
+              <span>行李规则透明</span>
+              <span>AI 决策建议</span>
+              <span>低价日历</span>
+            </div>
           </div>
-          <SearchForm
-            initialQuery={DEFAULT_QUERY}
-            submitLabel="开始找机会"
-            eyebrow="航旅决策入口"
-            title="选城市和日期"
-            description="我们同时给你最低价和更划算方案，再帮你看清规则代价。"
-            secondaryActionLabel="先看今日机会"
-            secondaryActionHref="#daily-best"
-          />
+
+          <div className="hero-panel">
+            <SearchForm
+              initialQuery={DEFAULT_QUERY}
+              submitLabel="开始找机会"
+              title="搜索航班"
+              secondaryActionLabel="先看今日机会"
+              secondaryActionHref="#daily-best"
+            />
+          </div>
         </div>
       </section>
 
-      {/* Layer 2: 今日最佳机会条 */}
+      {/* 今日最佳机会 */}
       <section id="daily-best" className="daily-best-section">
         <div className="daily-best-section__header">
           <span className="section-label">今日最佳机会</span>
-          <p>实时精选三类出行决策，帮你快速发现当下值得出手的机会。</p>
+          <p>三类决策，帮你快速发现当下值得出手的机会。</p>
         </div>
         <DailyBestStrip />
       </section>
 
-      {/* Layer 3: 场景探索 Tabs */}
+      {/* 场景探索 */}
       <section className="content-section">
         <div className="section-heading">
           <div>
             <span className="section-label">场景探索</span>
             <h2>按出行场景发现机会</h2>
           </div>
-          <p>不知道去哪时，先从出行情境开始。</p>
+          <p>不知道去哪时，先从场景出发。</p>
         </div>
         <SceneEntryGrid scenes={homepageScenes} />
       </section>
 
-      {/* Layer 4: 轻量信任层 */}
+      {/* 信任层 */}
       <div className="trust-bar">
         <span>
           价格更新于今日 11:20 · 展示含税总价 · 已计入行李与退改因素 ·{" "}
