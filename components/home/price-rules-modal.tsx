@@ -91,7 +91,8 @@ export function PriceRulesModal({ open, onClose }: PriceRulesModalProps) {
 
         {/* 底部备注 */}
         <div className="rules-modal__footer">
-          <p>如有疑问，请在预订前向航空公司或 OTA 平台确认最终条款。本平台不提供预订服务，仅作决策参考。</p>
+          <p className="rules-modal__footer-disclaimer">本页用于说明展示口径，不代表 OTA 最终支付页。</p>
+          <p>如有疑问，请在预订前向航空公司确认最终条款。本平台仅作决策参考。</p>
         </div>
       </div>
     </div>

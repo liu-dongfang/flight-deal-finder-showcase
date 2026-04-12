@@ -75,7 +75,7 @@ export function SearchForm({
           <h2>{title ?? (compact ? "调整搜索" : "搜索航线")}</h2>
           {!compact && (
             <p className="search-form__tagline">
-              {description ?? "同时给你最低价和更划算方案，帮你看清真实出行成本。"}
+              {description ?? "最低价 · 真实代价 · 一次看清。"}
             </p>
           )}
         </div>
