@@ -37,23 +37,24 @@ export default function HomePage() {
             <span className="brand-mark__dot" />
             <span>
               <strong>{PRODUCT_NAME}</strong>
-              <small>全球特价航班探索</small>
+              <small>深度机票比价与风险洞察</small>
             </span>
           </Link>
         </header>
 
         <div className="hero-grid">
           <div className="hero-copy">
-            <span className="hero-kicker">智能计算真实总价</span>
+            <span className="hero-kicker">不仅找底价，更要看清底牌</span>
             <h1>{HOME_HEADLINE}</h1>
             <p>
-              实时搜索全网低价航班，透明化展示行李费用与退改签政策。相比最低裸价，我们为您筛选最高性价比的出行方案。
+              面对复杂的航司规则和隐藏陷阱，我们需要更聪明的决策工具。
+              为您实时剥除隐藏附加费，还原出每一次出行的真实成本。买票不再碰运气。
             </p>
 
             <div className="hero-points">
-              <span>隐藏成本提醒</span>
-              <span>多维度智能比价</span>
-              <span>真实总价排序</span>
+              <span>✈️ 还原含税总成本</span>
+              <span>🛡️ 深度扫描退改签限制</span>
+              <span>⚖️ 多维度价值评分</span>
             </div>
 
             <div className="hero-insight-card">
@@ -106,11 +107,11 @@ export default function HomePage() {
           <div className="hero-panel">
             <SearchForm
               initialQuery={DEFAULT_QUERY}
-              submitLabel="搜索航班"
-              eyebrow="探索行程"
-              title="规划您的下一次出行"
-              description="告诉我们您的计划，为您筛选出真实性价比最高的航班。"
-              signals={["涵盖全部税费", "包含行李测算"]}
+              submitLabel="开启智能比价"
+              eyebrow="下一站去哪"
+              title="规划您的完美旅程"
+              description="输入目的地，剩下的计算交给我们。全面比对全网最优性价比。"
+              signals={["行李额预警", "退改签评级", "转机风险提示"]}
             />
           </div>
         </div>

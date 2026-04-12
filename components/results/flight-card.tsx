@@ -68,15 +68,17 @@ export function FlightCard({
           </div>
 
           <div className="flight-card__detail-row">
-            <span>{formatFlightWindow(flight.departTimeLocal, flight.arriveTimeLocal, flight.arrivalDayOffset)}</span>
-            <span>{getFlightDecisionHeadline(flight)}</span>
+            <span className="flight-window">{formatFlightWindow(flight.departTimeLocal, flight.arriveTimeLocal, flight.arrivalDayOffset)}</span>
+            <span className={`flight-decision ${rank === 1 ? 'flight-decision--highlight' : ''}`}>{getFlightDecisionHeadline(flight)}</span>
           </div>
 
-          <p className="flight-card__summary">{getFlightRiskSummary(flight)}</p>
+          <div className="flight-card__risk-box">
+            <p className="flight-card__summary">{getFlightRiskSummary(flight)}</p>
+          </div>
         </div>
 
         <div className="flight-card__decision">
-          <div className="flight-card__price">
+          <div className="flight-card__price-block">
             <strong>{formatPrice(flight.totalPrice)}</strong>
             <span>含税总价</span>
             <small>
