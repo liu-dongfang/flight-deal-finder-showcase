@@ -2,6 +2,10 @@
 
 AI-coded product prototype for discounted-flight discovery, transparent fare rules, and booking decision support.
 
+> Public showcase only. This repository presents a deterministic product prototype, not a live travel booking service.
+
+Built for hiring review: a frontend-first AI product prototype showing product judgment, interface hierarchy, and transparent decision support under tight prototype scope.
+
 ![Repository hero](assets/readme/hero-home.png)
 
 This repository highlights:
