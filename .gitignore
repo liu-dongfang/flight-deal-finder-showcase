@@ -3,3 +3,16 @@ node_modules
 npm-debug.log*
 .DS_Store
 .vercel
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+coverage
+dist
+out
+playwright-report
+test-results
+AGENTS.md
+product_spec.md
+QA_REPORT.md
