@@ -1,6 +1,6 @@
-# meituan-flight-demo
+# flight-deal-finder-showcase
 
-AI product prototype for discounted-flight discovery, transparent fare rules, and booking decision support.
+AI-coded product prototype for discounted-flight discovery, transparent fare rules, and booking decision support.
 
 ![Repository hero](assets/readme/hero-home.png)
 
@@ -13,7 +13,7 @@ This repository highlights:
 
 ## Overview
 
-`meituan-flight-demo` is a frontend-first product prototype for discounted-flight discovery. The product is designed around a simple but under-served travel decision problem: low fares are easy to advertise, but much harder to interpret. A fare that looks cheap may hide baggage fees, rigid change rules, red-eye timing, or risky transfer conditions that make it a poor decision in practice.
+`flight-deal-finder-showcase` is a frontend-first product prototype for discounted-flight discovery. The product is designed around a simple but under-served travel decision problem: low fares are easy to advertise, but much harder to interpret. A fare that looks cheap may hide baggage fees, rigid change rules, red-eye timing, or risky transfer conditions that make it a poor decision in practice.
 
 This repository packages that idea as a public showcase. It is intentionally narrower than a real OTA or airline booking platform. The emphasis is on product framing, interface clarity, deterministic demo behavior, and a polished end-to-end review flow rather than real inventory, payments, or live supplier integrations.
 
@@ -103,7 +103,7 @@ npm run build
 
 Useful notes:
 - The app uses deterministic local demo data. No API keys or backend services are required.
-- The linked live deployment is available at [meituan-flight-demo.vercel.app](https://meituan-flight-demo.vercel.app).
+- A current public deployment is available from the live demo link above.
 
 ## Repository Guide
 
