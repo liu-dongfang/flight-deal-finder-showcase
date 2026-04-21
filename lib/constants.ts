@@ -1,9 +1,9 @@
 import type { SearchQuery } from "./types.ts";
 
-export const PRODUCT_NAME = "捡漏机票";
-export const HOME_HEADLINE = "帮你找到真正值得买的特价机票";
-export const HOME_TAGLINE = "先看低价，再看代价";
-export const HOME_DESCRIPTION = "先看低价，再看代价；再决定现在买不买。";
+export const PRODUCT_NAME = "低飞 LOWFLY";
+export const HOME_HEADLINE = "替你看清真便宜，替你避开假特价";
+export const HOME_TAGLINE = "发现值得买的票，不只看票面价";
+export const HOME_DESCRIPTION = "把票面价、真实成本和隐藏规则一起讲清楚的特价机票发现平台。";
 
 export const DEFAULT_QUERY: SearchQuery = {
   from: "上海",
