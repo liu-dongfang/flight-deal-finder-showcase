@@ -140,7 +140,7 @@ assets/readme/            README screenshots and repo hero assets
 
 ## License
 
-No license file has been added yet. If you want the public repository to permit reuse, choose a license before broader distribution.
+This repository is released under the MIT License. See [LICENSE](LICENSE).
 
 ## Release Notes
 
