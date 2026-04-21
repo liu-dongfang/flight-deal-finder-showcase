@@ -1,27 +1,29 @@
 # Architecture
 
-This repository packages a frontend-first flight-discovery prototype. The architecture is intentionally simple: deterministic local data, inspectable decision logic, and a polished UI flow that can be reviewed without private services or live supplier integrations.
+This repository packages a frontend-first flight-discovery prototype. The current architecture is built around an editorial product shell: curated deals, route-tracker states, true-cost breakdowns, and an inspectable results flow backed by deterministic local data.
 
 ## Product Goal
 
-The product goal is not to complete booking. It is to help a user answer three questions quickly:
-- Is this fare actually cheap?
-- What hidden rules or costs come with it?
-- Should I buy now, pay more for a better option, or shift the date?
+The product goal is not to complete booking. It is to help a user answer four questions quickly:
+- Which fares are worth paying attention to right now?
+- Is this fare actually cheap or only presented as cheap?
+- What hidden rules or add-on costs come with it?
+- Should I buy now, skip it, or keep tracking the route?
 
 ## Experience Structure
 
 ```mermaid
 flowchart LR
-    H["Homepage"] --> S["Search or scene entry"]
+    H["Editorial homepage"] --> S["Editor pick or route tracker"]
     S --> R["Results page"]
-    R --> C["Cheapest vs Best Value comparison"]
+    R --> C["Cheapest vs Best Overall comparison"]
     R --> F["Filters"]
-    R --> K["Low-price calendar"]
+    R --> T["Face price vs real cost summary"]
     C --> D["Flight card selection"]
     F --> D
-    K --> D
-    D --> L["Rule-transparency drawer"]
+    T --> D
+    D --> L["Detail drawer"]
+    L --> P["Price history and track CTA"]
 ```
 
 ## Page Responsibilities
@@ -30,29 +32,32 @@ flowchart LR
 
 Responsibility:
 - establish the product framing
-- offer both direct search and discovery-oriented entry points
-- surface opportunity signals before the user commits to a route
+- present discovery as an editorial product rather than a blank query form
+- surface a small set of worth-buying fares before the user commits to a route
+- make route tracking and themed exploration feel like first-class product modes
 
 Primary modules:
-- hero search panel
-- featured opportunity strip
-- scene-based shortcuts
-- trust and pricing explanation layer
+- issue-style hero and discovery form
+- editor picks grid
+- route tracker panel
+- themed destination rails
+- method cards explaining how the product judges a fare
 
 ### Results Page
 
 Responsibility:
-- turn a search or scene selection into a decision workspace
-- separate "cheap" from "worth buying"
+- turn a selected route into a decision workspace
+- separate "ticket face price" from "real trip cost"
+- distinguish the cheapest option from the best overall option
 - keep comparison readable without hiding important tradeoffs
 
 Primary modules:
-- route summary and sort switch
-- three-path conclusion cards
-- low-price calendar
-- filters for time, stops, baggage, flexibility, and risk suppression
-- recommendation cards and full result list
-- sticky decision summary
+- route summary card
+- cheapest versus best-overall switch
+- filters for baggage, directness, flexibility, red-eye avoidance, and budget cap
+- verdict-labeled result cards
+- cost-gap summary strip
+- in-context detail drawer
 
 ### Detail Layer
 
@@ -61,53 +66,56 @@ Responsibility:
 - make tradeoffs legible before the user decides
 
 Primary modules:
-- one-line verdict
-- benefits and tradeoffs
+- AI verdict summary
+- face price versus real cost breakdown
+- fare-rule transparency
 - audience fit
-- full rule breakdown for baggage, refund/change, price composition, and transfer conditions
+- 90-day price history
+- track-route call to action
 
 ## Key Decision Modules
 
+### Editorial Curation
+
+The homepage does not try to model a complete search marketplace. Instead, it uses a constrained editorial layer to answer: which routes are worth paying attention to first?
+
 ### Cheapest
 
-The "Cheapest" path privileges total price and uses small tie-breakers such as stops, baggage, and timing. It answers: what is the lowest-cost option on this date?
+The "Cheapest" view privileges ticket face price. It answers: what is the absolute lowest headline fare, even if the hidden costs make it unattractive?
 
-### Best Value
+### Best Overall
 
-The "Best Value" path adds weight for direct routing, baggage allowance, flexibility, daytime convenience, and lower transfer risk. It answers: what is the most balanced fare once obvious hidden costs are considered?
+The "Best Overall" view adds weight for baggage allowance, flexibility, direct routing, timing, and lower friction. It answers: what is the most sensible option once the true trip cost is taken seriously?
 
-### Change Date
+### True-Cost Breakdown
 
-The low-price calendar answers: should the user shift the departure date instead of accepting the current list at face value?
+The cost breakdown answers: how much extra money or inconvenience sits behind the face price once bags, meals, change fees, and schedule penalties are surfaced?
 
-### Rule Transparency
+### Route Tracking And History
 
-The drawer answers: what does this fare actually include, what does it restrict, and who is it a bad fit for?
+The tracker and price-history views answer: should the user act now, or keep watching this route?
 
 ## Data Flow
 
 ```mermaid
 flowchart LR
     Q["Search query"] --> U["lib/utils/query.ts"]
-    U --> E["lib/utils/flight-engine.ts"]
-    A["lib/data/routes.ts"] --> E
-    B["lib/data/flights.ts"] --> E
-    C["lib/data/calendarPrices.ts"] --> E
-    D["lib/utils/ai-reviews.ts"] --> E
-    E --> X["ResultsExperience"]
-    X --> Y["Cards, calendar, filters, drawer"]
+    U --> R["components/redesign/results-page.tsx"]
+    A["lib/data/redesign.ts"] --> H["components/redesign/home-page.tsx"]
+    A --> R
+    R --> Y["Cards, filters, drawer, history chart"]
 ```
 
-- Route availability is defined in local route records.
-- Fare options come from deterministic flight templates.
-- Calendar shifts change the price baseline for the selected route and date.
-- Scoring logic derives both the cheapest ordering and the best-value ordering from the same underlying data.
-- AI-style summaries are generated from local presentation rules and seeds, not from a live model call.
+- The homepage and results page both pull from deterministic datasets in `lib/data/redesign.ts`.
+- Featured deals, route-tracker states, themed rails, and results packs are all locally defined.
+- "Real cost" is composed from fixed breakdown items rather than a live calculation service.
+- Price history charts are synthetic presentation data, not historical market records.
+- AI-style verdict text is locally authored product copy and rules, not a live model call.
 
 ## Non-goals
 
 - No real OTA backend
-- No live pricing or inventory refresh
+- No live pricing, crawling, or inventory refresh
 - No booking, payment, login, or order management
-- No backend persistence for favorites or notifications
-- No claim of real operational pricing intelligence beyond the deterministic demo rules in this repo
+- No backend persistence for tracking, alerts, or notifications
+- No claim of real operational price intelligence beyond the deterministic demo rules in this repo

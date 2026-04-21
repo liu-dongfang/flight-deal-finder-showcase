@@ -7,61 +7,62 @@ This script is designed for a 60 to 90 second portfolio or interview walkthrough
 ### 0s-15s: Homepage framing
 
 Screen:
-- homepage hero and discovery modules
+- homepage hero and editorial shell
 
 What to say:
-- "This is a discounted-flight discovery prototype. The goal is not to book a ticket end to end. The goal is to help a user spot a strong fare, understand the hidden rules behind it, and make a better booking decision."
+- "This is an AI-coded flight-deal prototype framed like an editorial product. The goal is not to sell a ticket end to end. The goal is to surface a small set of worth-buying fares, explain the real cost behind them, and help the user decide whether to act now or keep tracking."
 
 What the reviewer should notice:
-- search is present, but the page is discovery-first rather than a blank form
+- the homepage is not a blank search form; it already has a product point of view
 
-### 15s-35s: Results page and decision summary
+### 15s-30s: Editor picks and route tracker
 
 Screen:
-- results page with route summary, conclusion cards, and list
+- editor picks grid and route tracker panel
 
 What to say:
-- "Instead of showing a flat list of cheap tickets, the results page distinguishes between the cheapest fare and the best-value fare. That keeps the product from pretending that every low headline price is equally good."
+- "The homepage is designed to feel more trustworthy than a generic OTA search shell. It mixes curated picks, themed rails, and route-tracker states so the user can start from opportunity instead of only from route syntax."
 
 What the reviewer should notice:
-- the interface creates a decision workspace, not just a sortable table
+- this is a stronger consumer-product surface, not just a component exercise
 
-### 35s-50s: Filters and risk control
+### 30s-50s: Results page and verdict switch
 
 Screen:
-- filters and recommendation cards
+- results page hero, verdict switch, and list
 
 What to say:
-- "Users can filter by time, stops, baggage, flexibility, or remove obviously high-risk options. This helps the experience move from raw fare discovery toward practical decision support."
+- "Instead of only sorting by cheapness, the results page separates the lowest ticket face price from the best overall option once you factor in baggage, timing, and flexibility. The central product move is the gap between face price and real trip cost."
 
 What the reviewer should notice:
-- hidden costs and rule quality are treated as first-class comparison signals
+- the product is opinionated about how a fare should be judged, not just how it should be listed
 
-### 50s-70s: Low-price calendar
+### 50s-65s: Filters and true-cost logic
 
 Screen:
-- calendar strip with a cheaper nearby date selected
+- filters panel and result cards
 
 What to say:
-- "The calendar answers a common travel question: should I buy now or move the trip? A nearby date may produce a significantly better option than anything on the current day."
+- "The filters are practical rather than decorative: baggage, direct flights, flexibility, red-eye avoidance, and budget cap all change which fare is actually sensible. This keeps the prototype focused on decision support."
 
 What the reviewer should notice:
-- date shifting is positioned as part of decision support, not a secondary afterthought
+- the list is not pretending that the cheapest label is always the right answer
 
-### 70s-90s: Rule-transparency drawer
+### 65s-90s: Detail drawer
 
 Screen:
-- flight details drawer
+- open detail drawer with breakdowns, rules, fit, and history
 
 What to say:
-- "The detail layer explains what the fare includes, what it restricts, and who it is suitable for. That is the core product promise: not just finding a low price, but making the tradeoffs readable before purchase."
+- "The detail layer is where the trust model pays off. It shows face price versus real trip cost, rule transparency, who the fare is good for, and a synthetic 90-day history so the user can decide whether to book now or keep tracking."
 
 What the reviewer should notice:
-- baggage, refund/change rules, transfer risk, and AI-style recommendation copy are all visible without leaving context
+- the product explains the decision instead of only presenting a score
 
 ## Most Important Review Points
 
-- discovery-first product framing
-- cheapest versus best-value distinction
+- editorial product framing
+- face price versus real trip cost
 - clear rule transparency
+- route tracking as a product concept
 - deterministic prototype scope with believable polish
