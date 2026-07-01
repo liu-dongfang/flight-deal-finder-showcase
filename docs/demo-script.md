@@ -10,7 +10,7 @@ Screen:
 - homepage hero and editorial shell
 
 What to say:
-- "This is an AI-coded flight-deal prototype framed like an editorial product. The goal is not to sell a ticket end to end. The goal is to surface a small set of worth-buying fares, explain the real cost behind them, and help the user decide whether to act now or keep tracking."
+- "This is a frontend-first flight-deal prototype framed like an editorial product. The goal is not to sell a ticket end to end. The goal is to surface a small set of worth-buying fares, explain the real cost behind them, and help the user decide whether to act now or keep tracking."
 
 What the reviewer should notice:
 - the homepage is not a blank search form; it already has a product point of view
