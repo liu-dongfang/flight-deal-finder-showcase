@@ -1,10 +1,10 @@
 # flight-deal-finder-showcase
 
-AI-coded editorial flight-deal prototype for curated discovery, true-cost breakdowns, and route tracking.
+Editorial flight-deal product prototype for curated discovery, true-cost breakdowns, and route tracking.
 
 > Public showcase only. This repository presents a deterministic product prototype, not a live travel booking service.
 
-Built for hiring review: a frontend-first AI product prototype showing product judgment, interface hierarchy, and transparent decision support under tight prototype scope.
+Built for hiring review: a frontend-first side project showing product judgment, interface hierarchy, and transparent decision support under tight prototype scope.
 
 ![Repository hero](assets/readme/hero-home.png)
 
@@ -13,7 +13,7 @@ This repository highlights:
 - A results experience that separates face price from real trip cost and lets users switch between "Cheapest" and "Best Overall"
 - A detail layer that makes fare rules, audience fit, and 90-day price history visible before a user decides whether to book or keep tracking
 
-**Demo:** [Live site](https://meituan-flight-demo.vercel.app) · [Architecture notes](docs/architecture.md) · [Product brief](docs/product-brief.md) · [Demo script](docs/demo-script.md) · [Public release manifest](docs/public-release-manifest.md)
+**Demo:** [Live site](https://meituan-flight-demo.vercel.app) | [Architecture notes](docs/architecture.md) | [Product brief](docs/product-brief.md) | [Demo script](docs/demo-script.md) | [Public release manifest](docs/public-release-manifest.md)
 
 ## Overview
 
@@ -63,14 +63,14 @@ This prototype turns that gap into a product surface:
 - Deterministic local demo data powering featured deals, route-tracker states, cost breakdowns, and price-history charts
 - Transparent communication of face price versus real cost, fare rules, and audience fit
 - AI-assisted product copy used as a decision aid, not as a claim of live pricing intelligence or a real crawler pipeline
-- A polished public-showcase package suitable for design, frontend, product, and AI-coding review
+- A polished public-showcase package suitable for design, frontend, product, and prototype-delivery review
 
 ## What I Owned
 
 - Interpreting the product brief and evolving it into a more opinionated MVP centered on editorial curation, route tracking, true-cost explanation, and decision support
 - Defining the information architecture across the editorial homepage, verdict-driven results surface, and detail drawer so each screen has a clear job
 - Designing how editor picks, route-tracker states, "Cheapest" versus "Best Overall", and rule transparency work together as one coherent decision flow
-- Using AI-assisted development to iterate quickly on copy, component structure, and presentation while keeping the final prototype deterministic and reviewable
+- Using AI-assisted development as an implementation aid while keeping the final prototype deterministic, local-data-backed, and reviewable
 - Packaging the repository itself for public evaluation: documentation, screenshots, release framing, and repo hygiene for a hiring-facing showcase
 
 ## Public Scope
